@@ -17,6 +17,3 @@ def parse_recipe(url):
     while '' in directions:
         directions.remove('')
     return {'ingredients': ingredients, 'directions': directions}
-
-if __name__ == '__main__':
-    print(parse_recipe("https://www.allrecipes.com/recipe/10813/best-chocolate-chip-cookies/?clickId=right%20rail0&internalSource=rr_feed_recipe_sb&referringId=219634%20referringContentType%3Drecipe"))
