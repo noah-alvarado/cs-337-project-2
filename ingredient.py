@@ -1,5 +1,5 @@
 from common_data import descriptors, measures, preparations, special_descriptors
-
+import re
 
 class Ingredient:
     def __init__(self, ingredient=None):
@@ -25,8 +25,7 @@ class Ingredient:
     def _parse_ingredient(self):
         bad_chars = ['(', ')', ',']
         for char in bad_chars:
-            self.raw.replace(char, '')
-
+            self.raw = self.raw.replace(char, '')
         if 'to taste' in self.raw:
             self.quantity = 'to taste'
             self.measure = ''
@@ -65,7 +64,7 @@ class Ingredient:
 
             self.name = self.name + token + ' '
 
-        self.name.trim()
+        self.name.strip()
 
     def _parse_tools(self):
         raise NotImplementedError
@@ -78,7 +77,16 @@ class Ingredient:
 
     @staticmethod
     def _is_number(token):
-        raise NotImplementedError
+        # returns true if the input is a number (including decimal numbers, fractions, and mixed numbers)
+        number_re = re.compile('([0-9]+[ ])?[0-9]*[.]*[/]*[0-9]+')
+        result = number_re.search(token)
+        if result:
+            result = result.string[result.start():result.end()]
+        print('is_number')
+        if result == token:
+            print(token, ' is a number')
+        else:
+            print(token, ' is not a number')
 
     @staticmethod
     def _match_quantity(t, tokens):
