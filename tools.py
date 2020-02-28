@@ -1,8 +1,4 @@
-measures = {
-    'tablespoon measure': ['tablespoon', 'T', 'tbsp'],
-    'teaspoon measure': ['teaspoon', 't', 'tsp'],
-    'cup measure': ['cup', 'Cup', 'C']
-}
+from common_data import descriptors, measures, preparations, special_descriptors
 
 def get_tools(ingredients, directions):
 
@@ -13,15 +9,24 @@ def get_tools(ingredients, directions):
             tools.append(measures['measure'])
 
     prep = {
+        'basted': ['baster'],
+        'blended': ['blender'],
+        'julienned': ['cutting board', 'knife'],
+        'mashed': ['potato masher'],
         'minced': ['cutting board', 'knife'],
         'chopped': ['cutting board', 'knife'],
-        'grated': ['grated'],
+        'grated': ['cheese grater'],
         'diced': ['cutting board', 'knife'],
         'peeled': ['peeler'],
-        'slice': ['cutting board', 'knife'],
+        'sliced': ['cutting board', 'knife'],
+        'slivered': ['cutting board', 'knife'],
         'halved': ['cutting board', 'knife'],
         'stirred': ['spoon'],
-        'whisked': ['whisk']
+        'mixed': ['spoon'],
+        'whisked': ['whisk'],
+        'pulverized': ['food processor'],
+        'pureed': ['food processor'],
+        'tenderized': ['meat pounder']
     }
 
     # measurers = ["cup", "tablespoon", "teaspoon", "tablespoons", "teaspoons", "Tablespoon", "Tablespoons", "C", "c", "tsp", "tbsp", "Tbsp", "Tsp"]
