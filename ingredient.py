@@ -1,4 +1,4 @@
-from common_data import measures
+from common_data import descriptors, measures, preparations, special_descriptors
 
 
 class Ingredient:
@@ -6,37 +6,80 @@ class Ingredient:
         if ingredient is None:
             raise ValueError('Ingredient must be initialized with the ingredient string')
 
-        self.name = '%name%'
-        self.quantity = '%quantity%'
-        self.measure = '%measure%'
+        self.raw = ingredient
+
+        self.name = ''
+        self.quantity = 1
+        self.measure = 'item'
 
         self.descriptors = []
         self.preparations = []
         self.cuisines = []
 
-    def _parse_ingredient(self, raw):
+        # fill data members
+        self._parse_ingredient()
+        self._parse_tools()
+        self._parse_methods()
+        self._parse_cuisines()
+
+    def _parse_ingredient(self):
         bad_chars = ['(', ')', ',']
         for char in bad_chars:
-            raw.replace(char, '')
+            self.raw.replace(char, '')
 
-        tokens = raw.split(' ')
-
-        if 'to taste' in raw.lower():
+        if 'to taste' in self.raw:
             self.quantity = 'to taste'
             self.measure = ''
+            self.raw.replace('to taste', '')
+            self.raw.trim()
 
+        for sd in special_descriptors:
+            if sd in self.raw:
+                self.descriptors.append(sd)
+                self.raw.replace(sd, '')
+                self.raw.trim()
+
+        tokens = self.raw.split(' ')
+
+        skip = False
         for t, token in enumerate(tokens):
-            if self._is_number(token):
-                fraction_pos = self._matched_fraction(t, tokens)
+            if skip:
+                skip = False
+                continue
+
+            if self._is_number(token[0]):
+                self.quantity, skip = self._match_quantity(t, tokens)
+                continue
             elif token in measures:
                 self.measure = measures[token]
+                continue
             elif token.lower() in measures:
                 self.measure = measures[token.lower()]
+                continue
+            elif token.lower() in descriptors:
+                self.descriptors.append(token.lower())
+                continue
+            elif token.lower() in preparations:
+                self.preparations.append(token.lower())
+                continue
+
+            self.name = self.name + token + ' '
+
+        self.name.trim()
+
+    def _parse_tools(self):
+        raise NotImplementedError
+
+    def _parse_methods(self):
+        raise NotImplementedError
+
+    def _parse_cuisines(self):
+        raise NotImplementedError
 
     @staticmethod
     def _is_number(token):
         raise NotImplementedError
 
     @staticmethod
-    def _matched_fraction(t, tokens):
+    def _match_quantity(t, tokens):
         raise NotImplementedError
