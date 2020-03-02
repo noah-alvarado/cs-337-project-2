@@ -39,4 +39,3 @@ class Recipe:
 
     def to_cuisine(self, cuisine):
         raise NotImplementedError
-
