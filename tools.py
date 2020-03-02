@@ -28,6 +28,33 @@ def get_tools(ingredients, directions):
         'pureed': ['food processor'],
         'tenderized': ['meat pounder']
     }
+    tasks = {
+        'saute': ['pan'],
+        'boil': ['pot'],
+        'simmer': ['pot'],
+        'grill': ['grill'],
+        'char': ['grill'],
+        'carmelize': ['pan'],
+        'browned': ['oven'],
+        'whip': ['whisk'],
+        'combine': ['spoon', 'mixing bowl'],
+        'puree': ['food processor'],
+        'stir to combine': ['spoon', 'mixing bowl'],
+        'blanche': ['pot', 'strainer', 'ice bath'],
+        'braise': ['saucepan', 'oven'],
+        'fried': ['pot', 'strainer'],
+        'hard-boiled': ['pot'],
+        'soft-boiled': ['pot'],
+        'stew': ['large saucepot'],
+        'sear': ['pan'],
+        'scramble': ['whisk'],
+        'reduced': ['sauce pot'],
+        'pulverize': ['mortar and pestle'],
+        'grind': ['mortar and pestle'],
+        'pan-fry': ['pan'],
+        'melt': ['bowl'],
+        'mash': ['potato masher']
+    }
 
     # measurers = ["cup", "tablespoon", "teaspoon", "tablespoons", "teaspoons", "Tablespoon", "Tablespoons", "C", "c", "tsp", "tbsp", "Tbsp", "Tsp"]
     # i_cut = ["chopped", "finely chopped", "grated", "mince", "sliced", "halved"]
