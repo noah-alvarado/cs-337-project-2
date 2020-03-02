@@ -124,6 +124,10 @@ measures = {
     'cloves': 'clove'
 }
 
+ignore_words = [
+    'optional'
+]
+
 # https://kathytemean.wordpress.com/2009/04/25/101-descriptive-words-for-foods/
 descriptors = [
     'acidic',

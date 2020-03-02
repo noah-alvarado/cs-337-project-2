@@ -1,5 +1,6 @@
 from webscraper import parse_recipe
 from step import Step
+from ingredient import Ingredient
 
 
 class Recipe:
@@ -12,14 +13,16 @@ class Recipe:
         raw_recipe = parse_recipe(url)
         raw_ingredients = raw_recipe['ingredients']
         raw_directions = raw_recipe['directions']
-        print (raw_recipe)
         print(raw_ingredients)
         print(raw_directions)
+        for ingredient in raw_ingredients:
+            self.ingredients.append(Ingredient(ingredient))
         for direction in raw_directions:
             for sentence in direction.split('.'):
                 sentence = sentence.strip()
                 if len(sentence) > 0:
-                    self.steps.append(Step(sentence))
+                    self.steps.append(Step(sentence, self.ingredients))
+                    print()
         raise NotImplementedError
 
     def __str__(self):
@@ -36,3 +39,4 @@ class Recipe:
 
     def to_cuisine(self, cuisine):
         raise NotImplementedError
+
