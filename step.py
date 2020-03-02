@@ -39,13 +39,9 @@ class Step:
 
     def _parse_methods(self):
         # raise NotImplementedError
-        for word, tools in prep_tools.items():
-            if word in self.raw and word not in self.methods:
-                self.methods.append(word)
         for word, tools in task_tools.items():
             if word in self.raw and word not in self.methods:
                 self.methods.append(word)
-        print()
 
     def _parse_cuisines(self):
         # raise NotImplementedError

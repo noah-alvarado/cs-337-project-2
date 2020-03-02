@@ -349,6 +349,28 @@ prep_tools = {
         'tenderized': ['meat pounder']
     }
 
+# methods needed for prep (to get stuff in ingredients list)
+prep_methods = {
+        'basted': 'bast',
+        'blended': 'blend',
+        'julienned': 'julien',
+        'mashed': 'mash',
+        'minced': 'mince',
+        'chopped': 'chop',
+        'grated': 'grate',
+        'diced': 'dice',
+        'peeled': 'peel',
+        'sliced': 'slice',
+        'slivered': 'sliver',
+        'halved': 'half',
+        'stirred': 'stir',
+        'mixed': 'mix',
+        'whisked': 'whisk',
+        'pulverized': 'pulverize',
+        'pureed': 'puree',
+        'tenderized': 'tenderize'
+    }
+
 # tools needed for the tasks (to do the stuff in the directions)
 task_tools = {
         'saute': ['pan'],
