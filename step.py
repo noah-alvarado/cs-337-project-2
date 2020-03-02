@@ -1,5 +1,5 @@
 from ingredient import Ingredient
-from common_data import descriptors, measures, preparations, special_descriptors
+from common_data import descriptors, measures, preparations, special_descriptors, prep_tools, task_tools
 import re
 
 class Step:
@@ -31,11 +31,20 @@ class Step:
                     self.ingredients.append(ingredient)
 
     def _parse_tools(self):
-        # raise NotImplementedError
-        print()
+        for word, tools in task_tools.items():
+            if word in self.raw:
+                for tool in tools:
+                    if tool not in self.tools:
+                        self.tools.append(tool)
 
     def _parse_methods(self):
         # raise NotImplementedError
+        for word, tools in prep_tools.items():
+            if word in self.raw and word not in self.methods:
+                self.methods.append(word)
+        for word, tools in task_tools.items():
+            if word in self.raw and word not in self.methods:
+                self.methods.append(word)
         print()
 
     def _parse_cuisines(self):

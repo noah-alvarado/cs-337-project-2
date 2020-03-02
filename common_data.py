@@ -326,3 +326,55 @@ preparations = [
     'toasted',
     'wrapped'
 ]
+
+# tools needed for prep (to get stuff in ingredients list)
+prep_tools = {
+        'basted': ['baster'],
+        'blended': ['blender'],
+        'julienned': ['cutting board', 'knife'],
+        'mashed': ['potato masher'],
+        'minced': ['cutting board', 'knife'],
+        'chopped': ['cutting board', 'knife'],
+        'grated': ['cheese grater'],
+        'diced': ['cutting board', 'knife'],
+        'peeled': ['peeler'],
+        'sliced': ['cutting board', 'knife'],
+        'slivered': ['cutting board', 'knife'],
+        'halved': ['cutting board', 'knife'],
+        'stirred': ['spoon'],
+        'mixed': ['spoon'],
+        'whisked': ['whisk'],
+        'pulverized': ['food processor'],
+        'pureed': ['food processor'],
+        'tenderized': ['meat pounder']
+    }
+
+# tools needed for the tasks (to do the stuff in the directions)
+task_tools = {
+        'saute': ['pan'],
+        'boil': ['pot'],
+        'simmer': ['pot'],
+        'grill': ['grill'],
+        'char': ['grill'],
+        'carmelize': ['pan'],
+        'browned': ['oven'],
+        'whip': ['whisk'],
+        'combine': ['spoon', 'mixing bowl'],
+        'puree': ['food processor'],
+        'stir to combine': ['spoon', 'mixing bowl'],
+        'blanche': ['pot', 'strainer', 'ice bath'],
+        'braise': ['saucepan', 'oven'],
+        'fried': ['pot', 'strainer'],
+        'hard-boiled': ['pot'],
+        'soft-boiled': ['pot'],
+        'stew': ['large saucepot'],
+        'sear': ['pan'],
+        'scramble': ['whisk'],
+        'reduced': ['sauce pot'],
+        'pulverize': ['mortar and pestle'],
+        'grind': ['mortar and pestle'],
+        'pan-fry': ['pan'],
+        'melt': ['bowl'],
+        'mash': ['potato masher'],
+        'poach': ['sauce pot']
+    }

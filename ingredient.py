@@ -1,4 +1,4 @@
-from common_data import descriptors, measures, preparations, special_descriptors, ignore_words
+from common_data import descriptors, measures, preparations, special_descriptors, ignore_words, prep_tools, task_tools
 import re
 
 class Ingredient:
@@ -12,6 +12,7 @@ class Ingredient:
         self.quantity = 1
         self.measure = 'item'
 
+        self.tools = []
         self.descriptors = []
         self.preparations = []
         self.cuisines = []
@@ -85,8 +86,11 @@ class Ingredient:
         self.name.strip()
 
     def _parse_tools(self):
-        i = 1
-        # raise NotImplementedError
+        for word, tools in prep_tools.items():
+            if word in self.raw:
+                for tool in tools:
+                    if tool not in self.tools:
+                        self.tools.append(tool)
 
     def _parse_methods(self):
         # raise NotImplementedError
