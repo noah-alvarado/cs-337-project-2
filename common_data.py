@@ -351,9 +351,9 @@ prep_tools = {
 
 # methods needed for prep (to get stuff in ingredients list)
 prep_methods = {
-        'basted': 'bast',
+        'basted': 'baste',
         'blended': 'blend',
-        'julienned': 'julien',
+        'julienned': 'julienne',
         'mashed': 'mash',
         'minced': 'mince',
         'chopped': 'chop',
@@ -379,20 +379,20 @@ task_tools = {
         'grill': ['grill'],
         'char': ['grill'],
         'carmelize': ['pan'],
-        'browned': ['oven'],
+        'brown': ['oven'],
         'whip': ['whisk'],
         'combine': ['spoon', 'mixing bowl'],
         'puree': ['food processor'],
         'stir to combine': ['spoon', 'mixing bowl'],
         'blanche': ['pot', 'strainer', 'ice bath'],
         'braise': ['saucepan', 'oven'],
-        'fried': ['pot', 'strainer'],
-        'hard-boiled': ['pot'],
-        'soft-boiled': ['pot'],
+        'fry': ['pot', 'strainer'],
+        'hard-boil': ['pot'],
+        'soft-boil': ['pot'],
         'stew': ['large saucepot'],
         'sear': ['pan'],
         'scramble': ['whisk'],
-        'reduced': ['sauce pot'],
+        'reduce': ['sauce pot'],
         'pulverize': ['mortar and pestle'],
         'grind': ['mortar and pestle'],
         'pan-fry': ['pan'],
@@ -400,3 +400,9 @@ task_tools = {
         'mash': ['potato masher'],
         'poach': ['sauce pot']
     }
+
+oily_ingredients = [
+    'olive oil',
+    'butter',
+    'margarine'
+]

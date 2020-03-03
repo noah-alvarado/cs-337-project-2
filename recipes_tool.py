@@ -29,9 +29,8 @@ if __name__ == '__main__':
 
         if transformation[0] == 'adjust':
             factor = transformation[1]
-            recipe.adjust_portions(factor)
-
-            print(f'this much more {factor}')
+            recipe.adjust_portions(float(factor))
+            # print(f'this much more {factor}')
             continue
 
         if transformation[0] == 'vegify':

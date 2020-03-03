@@ -1,6 +1,7 @@
 from webscraper import parse_recipe
 from step import Step
 from ingredient import Ingredient
+from common_data import oily_ingredients
 
 
 class Recipe:
@@ -39,7 +40,29 @@ class Recipe:
         print('recipe stuff here')
 
     def adjust_portions(self, amount):
-        raise NotImplementedError
+        saute_preps = ['sear', 'brown', 'saute']
+        for ingredient in self.ingredients:
+            adjusted = False
+            for prep in saute_preps:
+                for step in self.steps:
+                    if ingredient in step.ingredients and prep in step.methods and ingredient.name in oily_ingredients:
+                        if amount < 1.0:
+                            if not adjusted:
+                                adjusted = True
+                                ingredient.quantity *= 1.5 * amount
+                        else:
+                            if not adjusted:
+                                adjusted = True
+                                ingredient.quantity *= amount * .75
+            if not adjusted:
+                ingredient.quantity *= amount
+                adjusted = True
+
+        for step in self.steps:
+            if len(step.current_time_string) > 0 and step.time_in_minutes > 0:
+                new_time = step.time_in_minutes + step.time_in_minutes * (amount - 1) * .5
+                if step.current_time_string in step.raw:
+                    step.raw.replace(step.current_time_string, step.time_in_minutes + ' minutes')
 
     def vegify(self):
         raise NotImplementedError
