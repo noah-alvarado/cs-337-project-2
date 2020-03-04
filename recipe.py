@@ -14,6 +14,7 @@ class Recipe:
         raw_recipe = parse_recipe(url)
         raw_ingredients = raw_recipe['ingredients']
         raw_directions = raw_recipe['directions']
+        self.recipe_name = raw_recipe['name']
         for ingredient in raw_ingredients:
             processed_ingredient = Ingredient(ingredient)
             self.ingredients.append(processed_ingredient)
@@ -34,7 +35,7 @@ class Recipe:
                             self.methods.append(method)
 
     def __str__(self):
-        print_str = 'Here is the recipe:\n\nIngredients:\n'
+        print_str = 'Here is the recipe:\n' + self.recipe_name + '\n\nIngredients:\n'
         for ingredient in self.ingredients:
             if ingredient.quantity_is_set and isinstance(ingredient.quantity, float):
                 if ingredient.measure == 'item':
@@ -69,7 +70,54 @@ class Recipe:
 
         print_str += '\nDirections:\n'
         for index, step in enumerate(self.steps):
-            print_str += '\tStep:' + str(index + 1) + ': ' + step.raw + '.\n'
+            print_str += '\tStep' + str(index + 1) + ': ' + step.raw + '.\n'
+        return print_str
+
+    def get_verbose(self):
+        print_str = 'Here is the recipe for "' + self.recipe_name + '" with the representation details shown:\n\nIngredients:\n'
+        for ingredient in self.ingredients:
+            if ingredient.quantity_is_set and isinstance(ingredient.quantity, float):
+                if ingredient.measure == 'item':
+                    description = '\tQuantity: ' + str(ingredient.quantity) + '; '
+                else:
+                    description = '\tQuanitity: ' + str(ingredient.quantity) + '; Measure: ' + ingredient.measure
+                    if ingredient.quantity > 1:
+                        description += 's; '
+                    else:
+                        description += '; '
+            else:
+                description = '\t'
+            remove_comma = False
+            for prep in ingredient.preparations:
+                if prep not in ingredient.descriptors:
+                    if not remove_comma:
+                        description += 'Preparations: '
+                    description +=  prep + ', '
+                    remove_comma = True
+            if remove_comma:
+                description = description[0:len(description)-2] + '; '
+            remove_comma = False
+            for descriptor in ingredient.descriptors:
+                if not remove_comma:
+                    description += 'Descriptors: '
+                remove_comma = True
+                description += descriptor + ', '
+            if remove_comma:
+                description = description[0:len(description)-2] + '; '
+            description += 'Name: ' + ingredient.name + ';'
+            if ingredient.to_taste and ingredient.quantity_is_set:
+                description += ' Alternative Quantity: (or to taste)'
+            elif ingredient.to_taste:
+                description += ' Quantity: (to taste)'
+            print_str += description + '. Tools:' + ', and '.join(', '.join(ingredient.tools).rsplit(', ', 1)) + ';  Methods:' + \
+                         ', and '.join(', '.join(ingredient.methods).rsplit(', ', 1)) + ';\n'
+
+        print_str += '\nDirections:\n'
+        for index, step in enumerate(self.steps):
+            print_str += '\tStep ' + str(index + 1) + ': ' + step.raw + '.\n\t\tIngredients: '\
+                         + ', and '.join(', '.join(step.ingredients).rsplit(', ', 1)) + '\n\t\tTime: ' + \
+                         step.current_time_string + '\n\t\tTools: ' + ', and '.join(', '.join(step.tools).rsplit(', ', 1)) + \
+                         '\n\t\tMethods: ' + ', and '.join(', '.join(step.methods).rsplit(', ', 1)) + '\n'
         return print_str
 
     def adjust_portions(self, amount):

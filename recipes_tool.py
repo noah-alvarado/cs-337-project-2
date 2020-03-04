@@ -5,11 +5,16 @@ if __name__ == '__main__':
     url = input('Recipe URL: ')
     recipe = Recipe(url)
 
+    already_printed = False
     # loop forever so we can keep performing transformations
     while True:
         # print the recipe
-        print(recipe)
+        if not already_printed:
+            print(recipe)
 
+        already_printed = False
+
+        print('\nTo print a verbose version of the recipe (to show the representation), type "verbose" (and you type verbose every time to see this, otherwise, you get the concise printout.)')
         # print available transformations
         print('\nAvailable transformations:')
 
@@ -56,4 +61,9 @@ if __name__ == '__main__':
             recipe.to_cuisine(cuisine)
 
             print(cuisine)
+            continue
+
+        if transformation[0] == 'verbose':
+            print(recipe.get_verbose())
+            already_printed = True
             continue
