@@ -22,21 +22,23 @@ class Step:
         self._parse_time()
 
     def _parse_time(self):
+        self.raw = self.raw.replace('more minutes', 'minutes')
         bad_chars = ['(', ')', ',']
         for char in bad_chars:
             raw_clean = self.raw.replace(char, '')
         step_words = raw_clean.split()
-        for index, word in step_words:
-            if Ingredient._is_number(word):
+        for index, word in enumerate(step_words):
+            if Ingredient._is_number(word) and index < len(step_words) - 1:
                 if step_words[index + 1] == 'hour' or step_words[index + 1] == 'hours':
-                    current_time_string = word + step_words[index + 1]
-                    time_in_minutes = float(word) * 60
+                    self.current_time_string = word + ' ' + step_words[index + 1]
+                    self.time_in_minutes = float(word) * 60
                 elif step_words[index + 1] == 'minutes':
-                    current_time_string += word + step_words[index + 1]
-                    time_in_minutes += float(word)
+                    self.current_time_string += ' ' + word + ' ' + step_words[index + 1]
+                    self.time_in_minutes += float(word)
                 elif step_words[index + 1] == 'seconds':
-                    current_time_string += word + step_words[index + 1]
-                    time_in_minutes += float(word) / 60
+                    self.current_time_string += ' ' + word + ' ' + step_words[index + 1]
+                    self.time_in_minutes += float(word) / 60
+                self.current_time_string = self.current_time_string.strip()
 
 
     def _parse_ingredients(self):

@@ -13,7 +13,7 @@ if __name__ == '__main__':
         # print available transformations
         print('\nAvailable transformations:')
 
-        print('\tAdjust Amount (where %factor% is a fraction or integer) -> adjust %factor%')
+        print('\tAdjust Amount (where %factor% is a decimal or integer) -> adjust %factor%')
         print('\tMake Vegetarian -> vegify')
         print('\tMake Non-Vegetarian -> meatify')
         print('\tTo Cuisine -> cuisine [latin | asian | indian | british | european | african]')
@@ -29,7 +29,13 @@ if __name__ == '__main__':
 
         if transformation[0] == 'adjust':
             factor = transformation[1]
-            recipe.adjust_portions(float(factor))
+            try:
+                factor = float(factor)
+            except:
+                print('Invalid Input :(')
+                continue
+            print('Adjusting the recipe by a factor of', factor)
+            recipe.adjust_portions(factor)
             # print(f'this much more {factor}')
             continue
 

@@ -17,6 +17,8 @@ class Ingredient:
         self.descriptors = []
         self.preparations = []
         self.cuisines = []
+        self.to_taste = False
+        self.quantity_is_set = False
 
         # fill data members
         self._parse_ingredient()
@@ -24,23 +26,26 @@ class Ingredient:
         self._parse_methods()
         self._parse_cuisines()
 
-        print('ingredient', self.raw, 'with name', self.name, 'and quantity', self.quantity, self.measure, 'and descriptor', self.descriptors, 'and preps', self.preparations)
+        # print('ingredient', self.raw, 'with name', self.name, 'and quantity', self.quantity, self.measure, 'and descriptor', self.descriptors, 'and preps', self.preparations)
 
     def _parse_ingredient(self):
         bad_chars = ['(', ')', ',']
         for char in bad_chars:
             self.raw = self.raw.replace(char, '')
         if 'to taste' in self.raw:
-            self.quantity = 'to taste'
+            self.to_taste = True
             self.measure = ''
-            self.raw.replace('to taste', '')
-            self.raw.strip()
+            if 'or to taste' in self.raw:
+                self.raw = self.raw.replace('or to taste', '')
+            else:
+                self.raw = self.raw.replace('to taste', '')
+            self.raw = self.raw.strip()
 
         for sd in special_descriptors:
             if sd in self.raw:
                 self.descriptors.append(sd)
-                self.raw.replace(sd, '')
-                self.raw.strip()
+                self.raw = self.raw.replace(sd, '')
+                self.raw = self.raw.strip()
 
         tokens = self.raw.split(' ')
 
@@ -84,7 +89,8 @@ class Ingredient:
 
             self.name = self.name + token + ' '
 
-        self.name.strip()
+        self.quantity_is_set = quantity_is_set
+        self.name = self.name.strip()
 
     def _parse_tools(self):
         for word, tools in prep_tools.items():
