@@ -40,6 +40,8 @@ if __name__ == '__main__':
         print('\tMake Vegetarian -> vegify')
         print('\tMake Non-Vegetarian -> meatify')
         print('\tTo Cuisine -> cuisine [italian | mexican]')
+        print('\tMake Healthier -> healthy')
+        print('\tMake Less Healthy -> not-healthy')
 
         print('\n\tTo exit the recipe transformer, enter \'stop\'.')
         print('\n\tTo start again with a new recipe, simply enter the recipe\'s url.')
@@ -99,6 +101,30 @@ if __name__ == '__main__':
             cuisine = transformation[1]
 
             replacements = recipe.to_cuisine(cuisine)
+            print_replacements(list(replacements))
+
+            # change steps to reflect changed ingredients
+            # TODO
+
+            # change steps to reflect new ingredients
+            # TODO
+
+            continue
+
+        if transformation[0] == 'healthy':
+            replacements = recipe.healthier()
+            print_replacements(list(replacements))
+
+            # change steps to reflect changed ingredients
+            # TODO
+
+            # change steps to reflect new ingredients
+            # TODO
+
+            continue
+
+        if transformation[0] == 'not-healthy':
+            replacements = recipe.less_healthy()
             print_replacements(list(replacements))
 
             # change steps to reflect changed ingredients
