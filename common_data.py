@@ -132,7 +132,7 @@ descriptors = [
     'aromatic',
     'bite-size',
     'bitter',
-    'black',
+    # 'black',
     'bland',
     'bold',
     'bolognese',
@@ -615,6 +615,9 @@ prep_methods = {
     }
 
 # tools needed for the tasks (to do the stuff in the directions)
+# key: word, value: requried tools
+# if word in step, add required tools
+# exception: cover, only add the found tool
 task_tools = {
         'saute': ['pan'],
         'boil': ['pot'],
@@ -622,7 +625,8 @@ task_tools = {
         'grill': ['grill'],
         'char': ['grill'],
         'carmelize': ['pan'],
-        'brown': ['oven'],
+        'cover': ['foil', 'lid', 'plastic wrap', 'cling wrap'],
+        'brown': ['oven', 'pan'],
         'whip': ['whisk'],
         'combine': ['spoon', 'mixing bowl'],
         'puree': ['food processor'],
@@ -641,7 +645,9 @@ task_tools = {
         'pan-fry': ['pan'],
         'melt': ['bowl'],
         'mash': ['potato masher'],
-        'poach': ['sauce pot']
+        'poach': ['sauce pot'],
+        'bake': ['oven'],
+        'drain': []
     }
 
 oily_ingredients = [

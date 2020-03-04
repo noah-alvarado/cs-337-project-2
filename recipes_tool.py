@@ -39,7 +39,7 @@ if __name__ == '__main__':
         print('\tAdjust Amount (where %factor% is a fraction or integer) -> adjust %factor%')
         print('\tMake Vegetarian -> vegify')
         print('\tMake Non-Vegetarian -> meatify')
-        print('\tTo Cuisine -> cuisine [latin | asian | indian | british | european | african]')
+        print('\tTo Cuisine -> cuisine [italian | mexican]')
 
         print('\n\tTo exit the recipe transformer, enter \'stop\'.')
         print('\n\tTo start again with a new recipe, simply enter the recipe\'s url.')
@@ -50,7 +50,7 @@ if __name__ == '__main__':
 
         if 'http://' in transformation or 'https://' in transformation:
             recipe = Recipe(transformation)
-            break
+            continue
 
         transformation = transformation.lower()
         transformation = transformation.split(' ')
