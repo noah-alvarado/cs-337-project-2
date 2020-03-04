@@ -116,8 +116,8 @@ measures = {
     'jars': 'jar',
 
     # sprig
-    'spring': 'sprig',
-    'springs': 'sprig',
+    'sprig': 'sprig',
+    'sprigs': 'sprig',
 
     # clove
     'clove': 'clove',
