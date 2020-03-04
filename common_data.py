@@ -649,3 +649,7 @@ oily_ingredients = [
     'butter',
     'margarine'
 ]
+
+ignore_words = [
+    'optional'
+]

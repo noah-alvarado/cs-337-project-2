@@ -19,7 +19,13 @@ if __name__ == '__main__':
         print('\tTo Cuisine -> cuisine [latin | asian | indian | british | european | african]')
 
         print('\n\tTo exit the recipe transformer, use transformation \'stop\'.')
+        print('\n\tTo start again with a new recipe, simply enter the recipe\'s url.')
         transformation = input('\nTransformation: ')
+
+        if 'http://' in transformation or 'https://' in transformation:
+            recipe = Recipe(transformation)
+            break
+
         transformation = transformation.lower()
         transformation = transformation.split(' ')
 
@@ -29,9 +35,14 @@ if __name__ == '__main__':
 
         if transformation[0] == 'adjust':
             factor = transformation[1]
-            recipe.adjust_portions(factor)
+            try:
+                factor = float(factor)
+            except:
+                print('Invalid Input :(')
+                continue
 
-            print(f'this much more {factor}')
+            print('Adjusting the recipe by a factor of: ', factor)
+            recipe.adjust_portions(factor)
             continue
 
         if transformation[0] == 'vegify':
