@@ -646,7 +646,8 @@ task_tools = {
         'melt': ['bowl'],
         'mash': ['potato masher'],
         'poach': ['sauce pot'],
-        'bake': ['oven']
+        'bake': ['oven'],
+        'drain': []
     }
 
 oily_ingredients = [
