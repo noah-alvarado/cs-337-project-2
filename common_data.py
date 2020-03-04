@@ -270,6 +270,7 @@ preparations = [
     'creamed',
     'crumbled',
     'dehydrated',
+    'diced',
     'dipped',
     'drenched',
     'drizzled',
@@ -322,3 +323,249 @@ preparations = [
     'toasted',
     'wrapped'
 ]
+
+meat_to_veg = {
+    # broths
+    'broth': ['vegetable broth'],
+    'stock': ['vegetable stock'],
+    'bouillon': ['vegetable bouillon'],
+
+    # fats
+    'fat': ['vegetable shortening'],
+
+    # cow
+    'cow': [
+        'portabello mushroom',
+        'tofu',
+        'jackfruit',
+        'seitan'
+    ],
+
+    # pig
+    'pig': [
+        'seitan',
+        'jackfruit',
+        'eggplant',
+        'seitan',
+        'tofu',
+        'cremini mushrooms'
+    ],
+
+    # poultry
+    'poultry': [
+        'tofu',
+        'tempeh',
+        'seitan'
+    ],
+
+    # rando meats
+    'rando meat': [
+        'garbanzo beans',
+        'lentils'
+    ],
+
+    # shellfish
+    'shellfish': [
+        'imitation crab',
+        'king oyster mushrooms',
+        'shitake mushrooms',
+        'hearts of palm'
+    ],
+
+    # fish
+    'fish': [
+        'tofu',
+        'chickpeas',
+        'jackfruit'
+    ]
+}
+
+veg_to_meat = {
+    'fungi': [
+        'cow',
+        'pig',
+        'shellfish'
+    ],
+    'meat substitutes': [
+        'poultry',
+        'fish'
+    ],
+    'broth': ['broth'],
+    'stock': ['stock'],
+    'bouillon': ['bouillon'],
+    'fat': ['fat']
+}
+
+meat_types = {
+    'broth': [
+        'chicken broth',
+        'beef broth',
+        'pork broth'
+    ],
+    'stock': [
+        'chicken stock',
+        'beef stock',
+        'pork stock',
+    ],
+    'bouillon': [
+        'chicken bouillon',
+        'beef bouillon',
+        'pork bouillon'
+    ],
+    'fat': [
+        'chicken fat',
+        'beef fat',
+        'pork fat',
+        'duck fat',
+        'beef tallow',
+        'duck tallow',
+        'lard'
+    ],
+    'cow': [
+        'beef',
+        'steak',
+        'veal'
+    ],
+    'pig': [
+        'pork',
+        'bacon',
+        'sausage',
+        'ham'
+    ],
+    'poultry': [
+        'chicken',
+        'duck',
+        'turkey',
+        'quail',
+        'pheasant'
+    ],
+    'rando meat': [
+        'egg',
+        'goat',
+        'lamb',
+        'bologna',
+        'pepperoni',
+        'salami'
+    ],
+    'shellfish': [
+        'shrimp',
+        'crab',
+        'crawfish',
+        'lobster',
+        'clam',
+        'oyster',
+        'mussel',
+        'crawdad',
+        'scallop'
+    ],
+    'fish': [
+        'shark',
+        'sharkfin',
+        'catfish',
+        'tilapia',
+        'salmon',
+        'halibut',
+        'sole',
+        'mackerel',
+        'cod',
+        'herring',
+        'trout',
+        'tuna',
+        'bass',
+        'carp',
+        'mahi-mahi',
+        'perch',
+        'flounder',
+        'snapper',
+        'grouper',
+        'redfish',
+        'whitefish',
+        'blackfish',
+        'lemonfish',
+        'kobe',
+        'sturgeon',
+        'sardines',
+        'anchovies',
+        'marlin',
+        'pollock'
+    ]
+}
+
+veg_types = {
+    'fat': ['vegetable shortening'],
+    'meat substitutes': [
+        'tofu',
+        'tempeh',
+        'seitan',
+        'jackfruit'
+    ],
+    'beans': [
+        'beans',
+        'pinto beans',
+        'black beans',
+        'chickpeas',
+        'garbanzo beans',
+        'green beans',
+        'kidney beans',
+        'lentils',
+        'canneli beans'
+    ],
+    'nuts': [
+        'nuts',
+        'peanuts',
+        'almonds',
+        'pecans',
+        'cashews',
+        'hazelnuts',
+        'macadamia nuts',
+        'pine nuts',
+        'chestnuts',
+        'pistachios',
+        'walnuts',
+        'brazil nuts'
+    ],
+    'veggies': [
+        'bell pepper',
+        'cucumber',
+        'squash',
+        'pumpkin'
+    ],
+    'leafy greens': [
+        'cabbage',
+        'spinach',
+        'dandelion greens'
+    ],
+    'herbs and spices': [
+        'oregano',
+        'thyme',
+        'cumin',
+        'garlic'
+    ],
+    'fungi': [
+        'king oyster mushrooms',
+        'shitake mushrooms',
+        'portabello mushrooms',
+        'cremini mushrooms'
+    ],
+    'roots': [
+        'radish',
+        'onion',
+        'carrot'
+    ],
+    'tubers': [
+        'potato',
+        'yam',
+        'sweet potato'
+    ],
+    'fruits': [
+        'apple',
+        'orange',
+        'plantain'
+    ],
+    'berries': [
+        'elderberry',
+        'blueberry',
+        'raspberry',
+        'blackberry'
+    ]
+}

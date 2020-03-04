@@ -16,7 +16,7 @@ if __name__ == '__main__':
         print('\tAdjust Amount (where %factor% is a fraction or integer) -> adjust %factor%')
         print('\tMake Vegetarian -> vegify')
         print('\tMake Non-Vegetarian -> meatify')
-        print('\tTo Cuisine -> cuisine [latin | asian | indian | british | european | african]')
+        print('\tTo Cuisine -> cuisine [mexican | italian]')
 
         print('\n\tTo exit the recipe transformer, use transformation \'stop\'.')
         transformation = input('\nTransformation: ')
@@ -24,31 +24,29 @@ if __name__ == '__main__':
         transformation = transformation.split(' ')
 
         if transformation[0] == 'stop':
-            print('bye!')
+            print('Goodbye!')
             break
 
         if transformation[0] == 'adjust':
             factor = transformation[1]
             recipe.adjust_portions(factor)
-
-            print(f'this much more {factor}')
             continue
 
         if transformation[0] == 'vegify':
             recipe.vegify()
-
-            print('goodbye meat')
             continue
 
         if transformation[0] == 'meatify':
             recipe.meatify()
-
-            print('its meat now')
             continue
 
         if transformation[0] == 'cuisine':
             cuisine = transformation[1]
-            recipe.to_cuisine(cuisine)
 
-            print(cuisine)
+            allowed_cuisines = ['mexican', 'italian']
+            if cuisine not in allowed_cuisines:
+                print('Error! Cuisine must be in [\'mexican\', \'italian\']')
+                continue
+
+            recipe.to_cuisine(cuisine)
             continue

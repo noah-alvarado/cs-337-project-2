@@ -1,3 +1,5 @@
+import fractions
+
 from common_data import descriptors, measures, preparations, special_descriptors
 
 
@@ -18,9 +20,6 @@ class Ingredient:
 
         # fill data members
         self._parse_ingredient()
-        self._parse_tools()
-        self._parse_methods()
-        self._parse_cuisines()
 
     def _parse_ingredient(self):
         bad_chars = ['(', ')', ',']
@@ -67,19 +66,37 @@ class Ingredient:
 
         self.name.trim()
 
-    def _parse_tools(self):
-        raise NotImplementedError
-
-    def _parse_methods(self):
-        raise NotImplementedError
-
-    def _parse_cuisines(self):
-        raise NotImplementedError
-
     @staticmethod
     def _is_number(token):
-        raise NotImplementedError
+        return token[0].isnumeric()
 
     @staticmethod
     def _match_quantity(t, tokens):
-        raise NotImplementedError
+        # the current token is a fraction, won't need to skip
+        if '/' in tokens[t]:
+            fraction_obj = sum(map(fractions.Fraction, tokens[t]))
+            return float(fraction_obj), False
+
+        # there is no next token
+        if t + 1 not in range(len(tokens)):
+            try:
+                fraction_obj = sum(map(fractions.Fraction, tokens[t]))
+                return float(fraction_obj), False
+            except:
+                return 1, False
+
+        # not a mixed number quantity
+        if '/' not in tokens[t+1]:
+            fraction_obj = sum(map(fractions.Fraction, tokens[t]))
+            return float(fraction_obj), False
+
+        # must be a mixed number, skip next token
+        try:
+            fraction_obj = sum(map(fractions.Fraction, f'{tokens[t]} {tokens[t+1]}'))
+            return float(fraction_obj), True
+        except:
+            try:
+                fraction_obj = sum(map(fractions.Fraction, f'{tokens[t]}'))
+                return float(fraction_obj), True
+            except:
+                return 1, True
