@@ -73,7 +73,7 @@ if __name__ == '__main__':
 
         if transformation[0] == 'vegify':
             replacements = recipe.vegify()
-            print_replacements(replacements)
+            print_replacements(list(replacements))
 
             # change steps to reflect changed ingredients
             # TODO
@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
         if transformation[0] == 'meatify':
             replacements = recipe.meatify()
-            print_replacements(replacements)
+            print_replacements(list(replacements))
 
             # change steps to reflect changed ingredients
             # TODO
@@ -99,7 +99,7 @@ if __name__ == '__main__':
             cuisine = transformation[1]
 
             replacements = recipe.to_cuisine(cuisine)
-            print_replacements(replacements)
+            print_replacements(list(replacements))
 
             # change steps to reflect changed ingredients
             # TODO
