@@ -1,7 +1,6 @@
 from ingredient import Ingredient
 from common_data import task_tools
 
-
 class Step:
     def __init__(self, raw_step=None, recipe_ingredients=None):
         if recipe_ingredients is None:
@@ -46,7 +45,7 @@ class Step:
 
     def _parse_ingredients(self):
         bad_chars = ['(', ')', ',']
-        raw_clean = self.raw
+        raw_clean = self.raw.lower()
         for char in bad_chars:
             raw_clean = raw_clean.replace(char, '')
 
@@ -57,12 +56,17 @@ class Step:
 
     def _parse_tools(self):
         for word, tools in task_tools.items():
-            if word in self.raw:
-                for tool in tools:
-                    if tool not in self.tools:
-                        self.tools.append(tool)
+            if word in self.raw.lower():
+                if word == "cover":
+                    for cover_type in tools:
+                        if cover_type in self.raw.lower():
+                            self.tools.append(cover_type)
+                else:
+                    for tool in tools:
+                        if tool not in self.tools:
+                            self.tools.append(tool)
 
     def _parse_methods(self):
         for word, tools in task_tools.items():
-            if word in self.raw and word not in self.methods:
+            if word in self.raw.lower() and word not in self.methods:
                 self.methods.append(word)

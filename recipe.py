@@ -10,7 +10,8 @@ class Recipe:
     def __init__(self, url):
         self.ingredients = []
         self.tools = []
-        self.methods = []
+        self.prep_methods = []
+        self.step_methods = []
         self.steps = []
 
         raw_recipe = parse_recipe(url)
@@ -19,11 +20,17 @@ class Recipe:
         self.recipe_name = raw_recipe['name']
 
         for ingredient in raw_ingredients:
-            processed_ingredient = Ingredient(ingredient)
+            try:
+                processed_ingredient = Ingredient(ingredient)
+            except ValueError:
+                continue
             self.ingredients.append(processed_ingredient)
             for tool in processed_ingredient.tools:
                 if tool not in self.tools:
                     self.tools.append(tool)
+            for method in processed_ingredient.methods:
+                if method not in self.prep_methods:
+                    self.prep_methods.append(method)
 
         for direction in raw_directions:
             for sentence in direction.split('.'):
@@ -35,23 +42,23 @@ class Recipe:
                         if tool not in self.tools:
                             self.tools.append(tool)
                     for method in processed_step.methods:
-                        if method not in self.methods:
-                            self.methods.append(method)
+                        if method not in self.step_methods:
+                            self.step_methods.append(method)
 
     def __str__(self):
-        print_str = 'Here is the recipe:\n' + self.recipe_name + '\n\nIngredients:\n'
+        print_str = '\nHere is the recipe:\n\t' + self.recipe_name + '\n\n\tIngredients:\n'
         for ingredient in self.ingredients:
             if ingredient.quantity_is_set and isinstance(ingredient.quantity, float):
                 if ingredient.measure == 'item':
-                    description = '\t' + str(ingredient.quantity) + ' '
+                    description = '\t\t' + str(ingredient.quantity) + ' '
                 else:
-                    description = '\t' + str(ingredient.quantity) + ' ' + ingredient.measure
+                    description = '\t\t' + str(ingredient.quantity) + ' ' + ingredient.measure
                     if ingredient.quantity > 1:
                         description += 's '
                     else:
                         description += ' '
             else:
-                description = '\t'
+                description = '\t\t'
             remove_comma = False
             for prep in ingredient.preparations:
                 if prep not in ingredient.descriptors:
@@ -72,9 +79,9 @@ class Recipe:
                 description += ' (to taste)'
             print_str += description + '\n'
 
-        print_str += '\nDirections:\n'
+        print_str += '\n\tDirections:\n'
         for index, step in enumerate(self.steps):
-            print_str += '\tStep' + str(index + 1) + ': ' + step.raw + '.\n'
+            print_str += '\t\tStep' + str(index + 1) + ': ' + step.raw + '.\n'
         return print_str
 
     def adjust_portions(self, amount):
@@ -103,7 +110,7 @@ class Recipe:
                 ingredient.quantity *= amount
 
         if len(not_adjusted_list) > 0:
-            print('\tWe will be using ' + str(amount) + ' times the amount of ' + ', and '.join(
+            print('\tWe will be using ' + str(amount) + ' times the amount of ' + ' and '.join(
                 ', '.join(not_adjusted_list).rsplit(', ', 1)) + '.')
 
         adjusted_steps = []
@@ -123,11 +130,11 @@ class Recipe:
 
         if len(adjusted_steps) > 0:
             if amount > 1:
-                print('\tWe will go for ' + str(100 * (amount - 1) / 2) + '% more time in ' + ', and '.join(
+                print('\tWe will go for ' + str(100 * (amount - 1) / 2) + '% more time in ' + ' and '.join(
                     ', '.join(adjusted_steps).rsplit(', ', 1)) + '.')
             else:
                 print('\tWe will go for ' + str(
-                    100 * (1 - (1 / (1 + ((1 / amount) - 1) * .5)))) + '% less time in ' + ', and '.join(
+                    100 * (1 - (1 / (1 + ((1 / amount) - 1) * .5)))) + '% less time in ' + ' and '.join(
                     ', '.join(adjusted_steps).rsplit(', ', 1)) + '.')
 
     def vegify(self):
@@ -224,19 +231,30 @@ class Recipe:
             yield None, ''
 
     def get_verbose(self):
-        print_str = 'Here is the recipe for "' + self.recipe_name + '" with the representation details shown:\n\nIngredients:\n'
+        print_str = '\nHere is the recipe for "' + self.recipe_name + '" with the representation details shown:' + \
+                    '\n\tAll the preparatory methods (for preparing the ingredients, aka "secondary" methods):\n\t\t' +\
+                    ' and '.join(', '.join(self.prep_methods).rsplit(', ', 1)) + \
+                    '\n\tAll the direction methods (for doing the steps, aka "primary" methods):\n\t\t' + \
+                    ' and '.join(', '.join(self.step_methods).rsplit(', ', 1)) + \
+                    '\n\tAll the necessary tools :\n\t\t' + \
+                    ' and '.join(', '.join(self.tools).rsplit(', ', 1)) + \
+                    '\n\n\tIngredients:\n'
         for ingredient in self.ingredients:
             if ingredient.quantity_is_set and isinstance(ingredient.quantity, float):
                 if ingredient.measure == 'item':
-                    description = '\tQuantity: ' + str(ingredient.quantity) + '; '
+                    description = '\t\tQuantity: ' + str(ingredient.quantity) + '; '
                 else:
-                    description = '\tQuanitity: ' + str(ingredient.quantity) + '; Measure: ' + ingredient.measure
+                    description = '\t\tQuantity: ' + str(ingredient.quantity) + '; Measure: ' + ingredient.measure
                     if ingredient.quantity > 1:
                         description += 's; '
                     else:
                         description += '; '
             else:
-                description = '\t'
+                description = '\t\t'
+            if ingredient.to_taste and ingredient.quantity_is_set:
+                description += 'Alternative Quantity: (or to taste); '
+            elif ingredient.to_taste:
+                description += 'Quantity: (to taste); '
             remove_comma = False
             for prep in ingredient.preparations:
                 if prep not in ingredient.descriptors:
@@ -255,19 +273,16 @@ class Recipe:
             if remove_comma:
                 description = description[0:len(description) - 2] + '; '
             description += 'Name: ' + ingredient.name + ';'
-            if ingredient.to_taste and ingredient.quantity_is_set:
-                description += ' Alternative Quantity: (or to taste)'
-            elif ingredient.to_taste:
-                description += ' Quantity: (to taste)'
-            print_str += description + '. Tools:' + ', and '.join(
-                ', '.join(ingredient.tools).rsplit(', ', 1)) + ';  Methods:' + \
-                         ', and '.join(', '.join(ingredient.methods).rsplit(', ', 1)) + ';\n'
 
-        print_str += '\nDirections:\n'
+            print_str += description + '. Tools:' + ' and '.join(
+                ', '.join(ingredient.tools).rsplit(', ', 1)) + ';  Methods:' + \
+                         ' and '.join(', '.join(ingredient.methods).rsplit(', ', 1)) + ';\n'
+
+        print_str += '\n\tDirections:\n'
         for index, step in enumerate(self.steps):
-            print_str += '\tStep ' + str(index + 1) + ': ' + step.raw + '.\n\t\tIngredients: ' \
-                         + ', and '.join(', '.join(step.ingredients).rsplit(', ', 1)) + '\n\t\tTime: ' + \
-                         step.current_time_string + '\n\t\tTools: ' + ', and '.join(
+            print_str += '\t\tStep ' + str(index + 1) + ': ' + step.raw + '.\n\t\t\tIngredients: ' \
+                         + ' and '.join(', '.join(step.ingredients).rsplit(', ', 1)) + '\n\t\t\tTime: ' + \
+                         step.current_time_string + '\n\t\t\tTools: ' + ' and '.join(
                 ', '.join(step.tools).rsplit(', ', 1)) + \
-                         '\n\t\tMethods: ' + ', and '.join(', '.join(step.methods).rsplit(', ', 1)) + '\n'
+                         '\n\t\t\tMethods: ' + ' and '.join(', '.join(step.methods).rsplit(', ', 1)) + '\n'
         return print_str
