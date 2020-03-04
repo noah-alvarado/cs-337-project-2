@@ -3,7 +3,7 @@ import random
 from ingredient import Ingredient
 from step import Step
 from webscraper import parse_recipe
-from common_data import meat_to_veg, meat_types, veg_to_meat, veg_types, oily_ingredients
+from common_data import meat_to_veg, meat_types, veg_to_meat, veg_types, oily_ingredients, mexican_conversions, italian_conversions
 
 
 class Recipe:
@@ -177,11 +177,51 @@ class Recipe:
 
         if num_items_replaced:
             # try to guess new meat
+            # TODO
             new_ingredient = Ingredient('1/2 lb grilled chicken breast')
+
+            # add ingredient to list
+            self.ingredients.append(new_ingredient)
+
+            # add step to cook ingredient
+            # TODO
+
+            # add step to combine ingredient
+            # TODO
+
+            # yield update
             yield None, new_ingredient
 
     def to_cuisine(self, cuisine):
-        raise NotImplementedError
+        replacer_map = {
+            'mexican': mexican_conversions,
+            'italian': italian_conversions
+        }
+        replacer = replacer_map[cuisine]
+
+        replaced_count = 0
+        for ing in range(len(self.ingredients)):
+            for repl, matches in replacer.items():
+                if self.ingredients[ing].name in matches:
+                    old = self.ingredients[ing].name
+                    self.ingredients[ing].name = repl
+                    new = self.ingredients[ing].name
+
+                    replaced_count += 1
+                    yield old, new
+                    break
+
+        if replaced_count == 0:
+            # guess a spice
+            # TODO
+
+            # add spice to ingredients
+            # TODO
+
+            # add spice to steps
+            # TODO
+
+            yield None, ''
 
     def get_verbose(self):
         print_str = 'Here is the recipe for "' + self.recipe_name + '" with the representation details shown:\n\nIngredients:\n'
