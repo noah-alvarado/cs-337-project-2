@@ -1,6 +1,25 @@
 from recipe import Recipe
 
 
+def print_replacements(changes):
+    if len(changes) == 0:
+        print('No changes were made!')
+        return
+
+    swaps = list(filter(lambda pair: pair[0] is not None, changes))
+    additions = list(filter(lambda pair: pair[0] is None, changes))
+
+    if len(swaps) > 0:
+        for old, new in zip(*swaps):
+            print(f'Replaced {old} with {new}')
+        print()
+
+    if len(additions) > 0:
+        for _, new in zip(*additions):
+            print(f'Added {new}')
+        print()
+
+
 if __name__ == '__main__':
     url = input('Recipe URL: ')
     recipe = Recipe(url)
@@ -53,22 +72,21 @@ if __name__ == '__main__':
             continue
 
         if transformation[0] == 'vegify':
-            recipe.vegify()
-
-            print('goodbye meat')
+            replacements = recipe.vegify()
+            print_replacements(replacements)
             continue
 
         if transformation[0] == 'meatify':
-            recipe.meatify()
-
-            print('its meat now')
+            replacements = recipe.meatify()
+            print_replacements(replacements)
             continue
 
         if transformation[0] == 'cuisine':
             cuisine = transformation[1]
-            recipe.to_cuisine(cuisine)
 
-            print(cuisine)
+            replacements = recipe.to_cuisine(cuisine)
+            print_replacements(replacements)
+
             continue
 
         if transformation[0] == 'verbose':
