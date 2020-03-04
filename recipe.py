@@ -3,7 +3,7 @@ import random
 from ingredient import Ingredient
 from step import Step
 from webscraper import parse_recipe
-from common_data import meat_to_veg, meat_types, veg_to_meat, veg_types, oily_ingredients, mexican_conversions, italian_conversions, less_healthy_conversions, healthy_conversions, mexican_spices, italian_spices
+from common_data import meat_to_veg, meat_types, veg_to_meat, veg_types, oily_ingredients, mexican_conversions, italian_conversions, less_healthy_conversions, healthy_conversions, mexican_spices, italian_spices, meat_additions
 
 
 class Recipe:
@@ -184,18 +184,18 @@ class Recipe:
 
         if num_items_replaced:
             # try to guess new meat
-            new_ingredient = Ingredient('1 lb baked chicken breast')
+            ing_str, prep_str, comb_str = random.choice(meat_additions)
 
-            # add ingredient to list
+            # add ingredient
+            new_ingredient = Ingredient(ing_str)
             self.ingredients.append(new_ingredient)
 
             # add step to cook ingredient
-            cook_step = Step('Bake chicken breast for 45 minutes at 350 degrees.', self.ingredients)
+            cook_step = Step(prep_str, self.ingredients)
+            self.steps.insert(0, cook_step)
 
             # add step to combine ingredient
-            combine_step = Step('Slice chicken breast and add to your dish.', self.ingredients)
-
-            self.steps.insert(0, cook_step)
+            combine_step = Step(comb_str, self.ingredients)
             self.steps.append(combine_step)
 
             yield None, new_ingredient
