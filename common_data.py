@@ -761,8 +761,10 @@ italian_spices = [
     'sage'
 ]
 
-#
+# list as they would be in the recipe page, it's randomized so just fill it out
+# note: the step is always appended
+# ingredient string, cook string, combine string
 meat_additions = [
-    (),
+    ('1 lb chicken breast', 'Bake chicken breast for 45 minutes at 350 degrees.', 'Slice chicken breast and add to your dish.'),
     ('', '', '')
 ]
