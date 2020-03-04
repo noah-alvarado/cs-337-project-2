@@ -3,7 +3,7 @@ import random
 from ingredient import Ingredient
 from step import Step
 from webscraper import parse_recipe
-from common_data import meat_to_veg, meat_types, veg_to_meat, veg_types, oily_ingredients, mexican_conversions, italian_conversions
+from common_data import meat_to_veg, meat_types, veg_to_meat, veg_types, oily_ingredients, mexican_conversions, italian_conversions, less_healthy_conversions, healthy_conversions, mexican_spices, italian_spices
 
 
 class Recipe:
@@ -133,17 +133,17 @@ class Recipe:
     def vegify(self):
         for i in range(len(self.ingredients)):
             for kind, matches in meat_types.items():
-                found = None
+                found = False
                 for match in matches:
                     if match in self.ingredients[i].name:
-                        found = kind
+                        found = True
                         break
 
-                if found is None:
+                if not found:
                     break
 
                 old = self.ingredients[i].name
-                self.ingredients[i].name = random.choice(meat_to_veg[found])
+                self.ingredients[i].name = random.choice(meat_to_veg[kind])
                 new = self.ingredients[i].name
 
                 yield old, new
@@ -158,6 +158,45 @@ class Recipe:
                 break
 
             for kind, matches in veg_types.items():
+                found = False
+                for match in matches:
+                    if match in self.ingredients[i].name:
+                        found = True
+                        break
+
+                if not found:
+                    break
+
+                old = self.ingredients[i].name
+                self.ingredients[i].name = random.choice(veg_to_meat[kind])
+                new = self.ingredients[i].name
+
+                num_items_replaced += 1
+                yield old, new
+                break
+
+        if num_items_replaced:
+            # try to guess new meat
+            new_ingredient = Ingredient('1 lb baked chicken breast')
+
+            # add ingredient to list
+            self.ingredients.append(new_ingredient)
+
+            # add step to cook ingredient
+            cook_step = Step('Bake chicken breast for 45 minutes at 350 degrees.', self.ingredients)
+
+            # add step to combine ingredient
+            combine_step = Step('Slice chicken breast and add to your dish.', self.ingredients)
+
+            self.steps.insert(0, cook_step)
+            self.steps.append(combine_step)
+
+            yield None, new_ingredient
+
+    def healthier(self):
+        num_items_replaced = 0
+        for i in range(len(self.ingredients)):
+            for kind, matches in healthy_conversions.items():
                 found = None
                 for match in matches:
                     if match in self.ingredients[i].name:
@@ -168,29 +207,61 @@ class Recipe:
                     break
 
                 old = self.ingredients[i].name
-                self.ingredients[i].name = random.choice(veg_to_meat[found])
+                self.ingredients[i].name = kind
                 new = self.ingredients[i].name
 
                 num_items_replaced += 1
                 yield old, new
                 break
 
-        if num_items_replaced:
-            # try to guess new meat
-            # TODO
-            new_ingredient = Ingredient('1/2 lb grilled chicken breast')
+        if num_items_replaced == 0:
+            # guess new ingredient
+            ing_str, stp_str = random.choice(healthy_conversions)
 
-            # add ingredient to list
-            self.ingredients.append(new_ingredient)
+            # add new ingredient
+            new_ing = Ingredient(ing_str)
+            self.ingredients.append(new_ing)
 
-            # add step to cook ingredient
-            # TODO
+            # add new step
+            new_stp = Step(stp_str, self.ingredients)
+            self.steps.append(new_stp)
 
-            # add step to combine ingredient
-            # TODO
+            yield None, new_ing.name
 
-            # yield update
-            yield None, new_ingredient
+    def less_healthy(self):
+        num_items_replaced = 0
+        for i in range(len(self.ingredients)):
+            for kind, matches in less_healthy_conversions.items():
+                found = None
+                for match in matches:
+                    if match in self.ingredients[i].name:
+                        found = kind
+                        break
+
+                if found is None:
+                    break
+
+                old = self.ingredients[i].name
+                self.ingredients[i].name = kind
+                new = self.ingredients[i].name
+
+                num_items_replaced += 1
+                yield old, new
+                break
+
+        if num_items_replaced == 0:
+            # guess new ingredient
+            ing_str, stp_str = random.choice(less_healthy_conversions)
+
+            # add new ingredient
+            new_ing = Ingredient(ing_str)
+            self.ingredients.append(new_ing)
+
+            # add new step
+            new_stp = Step(stp_str, self.ingredients)
+            self.steps.append(new_stp)
+
+            yield None, new_ing.name
 
     def to_cuisine(self, cuisine):
         replacer_map = {
@@ -212,16 +283,45 @@ class Recipe:
                     break
 
         if replaced_count == 0:
-            # guess a spice
-            # TODO
+            additions_map = {
+                'mexican': mexican_spices,
+                'italian': italian_spices
+            }
+            possible_spices = additions_map[cuisine]
 
-            # add spice to ingredients
-            # TODO
+            additions = []
+            for spice in possible_spices:
+                found = False
+                for ing in self.ingredients:
+                    if spice in ing.name:
+                        found = True
+                        break
 
-            # add spice to steps
-            # TODO
+                if not found:
+                    additions.append(spice)
 
-            yield None, ''
+            additions_to_make = 2
+            actually_added = []
+            for i in range(2):
+                if len(additions) == 0 or len(actually_added) > additions_to_make:
+                    break
+
+                # guess a spice
+                this_spice = random.choice(additions)
+                spice = Ingredient(f'{this_spice}, to taste')
+                additions.remove(this_spice)
+
+                # add spice to ingredients
+                self.ingredients.append(spice)
+
+                actually_added.append(this_spice)
+                yield None, spice.name
+
+            # add spices to steps
+            if len(actually_added) > 0:
+                spices = ', '.join(actually_added)
+                new_step = Step(f'Top with {spices}.', self.ingredients)
+                self.steps.append(new_step)
 
     def get_verbose(self):
         print_str = 'Here is the recipe for "' + self.recipe_name + '" with the representation details shown:\n\nIngredients:\n'

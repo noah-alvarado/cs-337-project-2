@@ -647,7 +647,14 @@ task_tools = {
 oily_ingredients = [
     'olive oil',
     'butter',
-    'margarine'
+    'unsalted butter',
+    'salted butter',
+    'margarine',
+    'coconut oil',
+    'avocado oil',
+    'vegetable oil',
+    'canola oil',
+    'grapeseed oil'
 ]
 
 ignore_words = [
@@ -683,3 +690,73 @@ italian_conversions = {
         'sauce'
     ]
 }
+
+# less healthy conversion dict:
+#   key: the thing an ingredient is replaced with
+#   value: [match_1, match_2, ..., match_3]
+#       if match_n in ingredient.name:
+#           ingredient.name = match_n
+less_healthy_conversions = {
+    'butter': [
+        'oil',
+        'margarine'
+    ],
+    'pork shoulder': [
+        'chicken',
+        'portobello mushroom',
+        'portabello mushroom'
+    ]
+}
+
+# less healthy conversion dict:
+#   key: the thing an ingredient is replaced with
+#   value: [match_1, match_2, ..., match_3]
+#       if match_n in ingredient.name:
+#           ingredient.name = match_n
+healthy_conversions = {
+    'avocado oil': [
+        'oil',
+        'butter',
+        'margarine'
+    ],
+    'chicken breast': [
+        'pork',
+        'steak',
+        'filet mignon'
+    ]
+}
+
+# list as they would be in the recipe page, it's randomized so just fill it out
+# note: the step is always appended
+# (ingredient_string, step_string)
+healthy_additions = [
+    ('1/2 cup chopped kale', 'Top with kale.'),
+    ('', '')
+]
+
+# list as they would be in the recipe page, it's randomized so just fill it out
+# note: the step is always appended
+# (ingredient_string, step_string)
+less_healthy_additions = [
+    ('2 Tbsp chocolate syrup, or to taste', 'Top with chocolate syrup.'),
+    ('', '')
+]
+
+mexican_spices = [
+    'cumin',
+    'coriander',
+    'achiote'
+]
+
+italian_spices = [
+    'oregano',
+    'thyme',
+    'basil',
+    'sage'
+]
+
+#
+meat_additions = [
+    (),
+    ('', '', '')
+]
