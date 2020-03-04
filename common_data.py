@@ -569,3 +569,83 @@ veg_types = {
         'blackberry'
     ]
 }
+
+# tools needed for prep (to get stuff in ingredients list)
+prep_tools = {
+        'basted': ['baster'],
+        'blended': ['blender'],
+        'julienned': ['cutting board', 'knife'],
+        'mashed': ['potato masher'],
+        'minced': ['cutting board', 'knife'],
+        'chopped': ['cutting board', 'knife'],
+        'grated': ['cheese grater'],
+        'diced': ['cutting board', 'knife'],
+        'peeled': ['peeler'],
+        'sliced': ['cutting board', 'knife'],
+        'slivered': ['cutting board', 'knife'],
+        'halved': ['cutting board', 'knife'],
+        'stirred': ['spoon'],
+        'mixed': ['spoon'],
+        'whisked': ['whisk'],
+        'pulverized': ['food processor'],
+        'pureed': ['food processor'],
+        'tenderized': ['meat pounder']
+    }
+
+# methods needed for prep (to get stuff in ingredients list)
+prep_methods = {
+        'basted': 'baste',
+        'blended': 'blend',
+        'julienned': 'julienne',
+        'mashed': 'mash',
+        'minced': 'mince',
+        'chopped': 'chop',
+        'grated': 'grate',
+        'diced': 'dice',
+        'peeled': 'peel',
+        'sliced': 'slice',
+        'slivered': 'sliver',
+        'halved': 'half',
+        'stirred': 'stir',
+        'mixed': 'mix',
+        'whisked': 'whisk',
+        'pulverized': 'pulverize',
+        'pureed': 'puree',
+        'tenderized': 'tenderize'
+    }
+
+# tools needed for the tasks (to do the stuff in the directions)
+task_tools = {
+        'saute': ['pan'],
+        'boil': ['pot'],
+        'simmer': ['pot'],
+        'grill': ['grill'],
+        'char': ['grill'],
+        'carmelize': ['pan'],
+        'brown': ['oven'],
+        'whip': ['whisk'],
+        'combine': ['spoon', 'mixing bowl'],
+        'puree': ['food processor'],
+        'stir to combine': ['spoon', 'mixing bowl'],
+        'blanche': ['pot', 'strainer', 'ice bath'],
+        'braise': ['saucepan', 'oven'],
+        'fry': ['pot', 'strainer'],
+        'hard-boil': ['pot'],
+        'soft-boil': ['pot'],
+        'stew': ['large saucepot'],
+        'sear': ['pan'],
+        'scramble': ['whisk'],
+        'reduce': ['sauce pot'],
+        'pulverize': ['mortar and pestle'],
+        'grind': ['mortar and pestle'],
+        'pan-fry': ['pan'],
+        'melt': ['bowl'],
+        'mash': ['potato masher'],
+        'poach': ['sauce pot']
+    }
+
+oily_ingredients = [
+    'olive oil',
+    'butter',
+    'margarine'
+]
