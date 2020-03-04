@@ -53,7 +53,7 @@ class Step:
         for ingredient in self.recipe_ingredients:
             if ingredient.name in raw_clean:
                 if ingredient.name not in self.ingredients:
-                    self.ingredients.append(ingredient)
+                    self.ingredients.append(ingredient.name)
 
     def _parse_tools(self):
         for word, tools in task_tools.items():

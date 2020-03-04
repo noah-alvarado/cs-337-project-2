@@ -6,9 +6,13 @@ if __name__ == '__main__':
     recipe = Recipe(url)
 
     # loop forever so we can keep performing transformations
+    already_printed = False
     while True:
         # print the recipe
-        print(recipe)
+        if not already_printed:
+            print(recipe)
+
+        already_printed = False
 
         # print available transformations
         print('\nAvailable transformations:')
@@ -18,8 +22,11 @@ if __name__ == '__main__':
         print('\tMake Non-Vegetarian -> meatify')
         print('\tTo Cuisine -> cuisine [latin | asian | indian | british | european | african]')
 
-        print('\n\tTo exit the recipe transformer, use transformation \'stop\'.')
+        print('\n\tTo exit the recipe transformer, enter \'stop\'.')
         print('\n\tTo start again with a new recipe, simply enter the recipe\'s url.')
+        print('\n\tTo show a verbose version of the recipe, enter \'verbose\'. This must be entered every time you '
+              'want a verbose output.')
+
         transformation = input('\nTransformation: ')
 
         if 'http://' in transformation or 'https://' in transformation:
@@ -62,4 +69,9 @@ if __name__ == '__main__':
             recipe.to_cuisine(cuisine)
 
             print(cuisine)
+            continue
+
+        if transformation[0] == 'verbose':
+            print(recipe.get_verbose())
+            already_printed = True
             continue

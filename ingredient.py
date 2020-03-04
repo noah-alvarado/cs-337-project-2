@@ -59,9 +59,15 @@ class Ingredient:
             elif self.is_number(token):
                 if quantity_is_set:
                     if measure_is_set:
-                        self.measure += ' ' + token
+                        if token in measures:
+                            self.measure += ' ' + measures[token]
+                        else:
+                            self.measure += ' ' + token
                     else:
-                        self.measure = token
+                        if token in measures:
+                            self.measure = measures[token]
+                        else:
+                            self.measure = token
                         measure_is_set = True
                 else:
                     self.quantity, skip = self._match_quantity(t, tokens)
@@ -69,7 +75,7 @@ class Ingredient:
                 continue
             elif token in measures:
                 if measure_is_set:
-                    self.measure += ' ' + token
+                    self.measure += ' ' + measures[token]
                 else:
                     self.measure = measures[token]
                     measure_is_set = True

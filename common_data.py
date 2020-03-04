@@ -653,3 +653,33 @@ oily_ingredients = [
 ignore_words = [
     'optional'
 ]
+
+# cuisine conversion dict:
+#   key: the thing an ingredient is replaced with
+#   value: [match_1, match_2, ..., match_3]
+#       if match_n in ingredient.name:
+#           ingredient.name = match_n
+mexican_conversions = {
+    'cilantro': [
+        'parsley',
+        'basil'
+    ],
+    'mole sauce': [
+        'sauce'
+    ]
+}
+
+# cuisine conversion dict:
+#   key: the thing an ingredient is replaced with
+#   value: [match_1, match_2, ..., match_3]
+#       if match_n in ingredient.name:
+#           ingredient.name = match_n
+italian_conversions = {
+    'basil': [
+        'cilantro',
+        'parsely'
+    ],
+    'tomato sauce': [
+        'sauce'
+    ]
+}
