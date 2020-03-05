@@ -439,9 +439,6 @@ vegan_to_meat = {
         'asiago',
         'brie',
         'feta',
-        'goat cheese',
-        'cream cheese',
-        'cheddar cheese'
     ]
 }
 

@@ -174,7 +174,7 @@ class Recipe:
             if found is None:
                 for replacement, matches in vegan_to_meat.items():
                     for match in matches:
-                        if match == self.ingredients[i].name.lower():
+                        if match in self.ingredients[i].name.lower():
                             old = self.ingredients[i].name
                             new = replacement
                             new_ing = Ingredient(
