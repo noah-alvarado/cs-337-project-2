@@ -100,16 +100,17 @@ if __name__ == '__main__':
         if transformation[0] == 'cuisine':
             cuisine = transformation[1]
 
-            replacements = recipe.to_cuisine(cuisine)
-            replacements = list(replacements)
+            if cuisine in ['mexican', 'italian']:
+                replacements = recipe.to_cuisine(cuisine)
+                replacements = list(replacements)
 
-            # print what was changed
-            print_replacements(replacements)
+                # print what was changed
+                print_replacements(replacements)
 
-            # change steps to reflect changed ingredients
-            recipe.change_step_ingredients(replacements)
+                # change steps to reflect changed ingredients
+                recipe.change_step_ingredients(replacements)
 
-            continue
+                continue
 
         if transformation[0] == 'healthy':
             replacements = recipe.healthier()
@@ -139,3 +140,6 @@ if __name__ == '__main__':
             print(recipe.get_verbose())
             already_printed = True
             continue
+
+        print('\nSorry, that tranformation was not recognized. Please check your spelling and try again.\n')
+        already_printed = True
