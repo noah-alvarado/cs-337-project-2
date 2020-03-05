@@ -7,7 +7,7 @@ def get_closest_transform(transform):
     all_transforms = [
         'adjust',
         'vegify',
-         'veganify',
+        'veganify',
         'meatify',
         'cuisine mexican',
         'cuisine italian',

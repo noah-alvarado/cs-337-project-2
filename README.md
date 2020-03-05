@@ -39,6 +39,7 @@ This will automatically load the online recipe, parse the ingredients and step, 
 The [available transformations](#transformations) are:
 - [Adjust amount](#adjust-amount)
 - [Make vegetarian](#make-vegetarian)
+- [Make vegan](#make-vegan)
 - [Make non-vegetarian](#make-non-vegetarian)
 - [Change cuisine](#change-cuisine)
 - [Make healthier](#make-more-healthy)
@@ -66,7 +67,7 @@ The specific ingredient used to replace non-vegetarian ingredients is variable, 
 vegify
 ```
 
-### Make Vegetarian
+### Make Vegan
 This will replace all non-vegan ingredients with vegan ones.
 The specific ingredient used to replace non-vegan ingredients is variable, and may changed based on the ingredient itself and random selection.
 ```shell script
