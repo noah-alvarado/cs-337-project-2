@@ -137,22 +137,26 @@ class Recipe:
 
     def vegify(self):
         for i in range(len(self.ingredients)):
+            found = None
             for kind, matches in meat_types.items():
-                found = False
                 for match in matches:
                     if match in self.ingredients[i].name:
-                        found = True
+                        found = kind
                         break
 
-                if not found:
-                    break
+            if found is None:
+                continue
 
-                old = self.ingredients[i].name
-                self.ingredients[i].name = random.choice(meat_to_veg[kind])
-                new = self.ingredients[i].name
+            old = self.ingredients[i].name
+            new = random.choice(meat_to_veg[found])
+            print(old, new)
+            if self.ingredients[i].measure == 'item':
+                self.ingredients[i].quantity /= 2.0
+                self.ingredients[i].measure = 'cup'
+            new_ing = Ingredient('{} {} {}'.format(self.ingredients[i].quantity, self.ingredients[i].measure, new))
+            self.ingredients[i] = new_ing
 
-                yield old, new
-                break
+            yield old, new
 
     def meatify(self):
         num_items_replaced = 0
@@ -162,23 +166,23 @@ class Recipe:
             if num_items_replaced > max_items_replaced:
                 break
 
+            found = None
             for kind, matches in veg_types.items():
-                found = False
                 for match in matches:
                     if match in self.ingredients[i].name:
-                        found = True
+                        found = kind
                         break
 
-                if not found:
-                    break
+            if found is None:
+                continue
 
-                old = self.ingredients[i].name
-                self.ingredients[i].name = random.choice(veg_to_meat[kind])
-                new = self.ingredients[i].name
+            old = self.ingredients[i].name
+            new = random.choice(veg_to_meat[found])
+            new_ing = Ingredient('{} {} {}'.format(self.ingredients[i].quantity, self.ingredients[i].measure, new))
+            self.ingredients[i] = new_ing
 
-                num_items_replaced += 1
-                yield old, new
-                break
+            num_items_replaced += 1
+            yield old, new
 
         if num_items_replaced == 0:
             # try to guess new meat

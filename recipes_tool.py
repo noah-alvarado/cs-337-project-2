@@ -62,12 +62,12 @@ def print_replacements(changes):
     additions = list(filter(lambda pair: pair[0] is None, changes))
 
     if len(swaps) > 0:
-        for old, new in zip(*swaps):
+        for old, new in swaps:
             print('Replaced {} with {}'.format(old, new))
         print()
 
     if len(additions) > 0:
-        for _, new in zip(*additions):
+        for _, new in additions:
             print('Added {}'.format(new))
         print()
 
