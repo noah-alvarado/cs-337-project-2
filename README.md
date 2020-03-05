@@ -98,7 +98,7 @@ healthy
 
 ### Make Less Healthy
 This transformation attempts to do the opposite of making the recipe more healthy, using the same general concepts.
-If a recipe is already very "unhealty" more ingredients will be added. Yum?
+If a recipe is already very "unhealthy" more ingredients will be added. Yum?
 ```shell script
 not-healthy
 ```
