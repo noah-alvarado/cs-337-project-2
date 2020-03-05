@@ -102,10 +102,6 @@ if __name__ == '__main__':
 
         transformation = input('\nTransformation: ')
 
-        print('\n========================================')
-        print('- {}'.format(transformation))
-        print('========================================\n')
-
         if 'http://' in transformation or 'https://' in transformation:
             recipe = Recipe(transformation)
             continue
@@ -114,10 +110,17 @@ if __name__ == '__main__':
         transformation = transformation.split(' ')
 
         if transformation[0] == 'stop':
+            print('\n========================================')
+            print('- {}'.format(transformation))
+            print('========================================\n')
             print('bye!')
             break
 
         if transformation[0] == 'adjust':
+            print('\n========================================')
+            print('- {}'.format(transformation))
+            print('========================================\n')
+
             factor = ' '.join(transformation[1:])
             factor = factor.strip()
             try:
@@ -131,6 +134,10 @@ if __name__ == '__main__':
             continue
 
         if transformation[0] == 'vegify':
+            print('\n========================================')
+            print('- {}'.format(transformation))
+            print('========================================\n')
+
             replacements = recipe.vegify()
             replacements = list(replacements)
 
@@ -152,6 +159,10 @@ if __name__ == '__main__':
             continue
 
         if transformation[0] == 'meatify':
+            print('\n========================================')
+            print('- {}'.format(transformation))
+            print('========================================\n')
+
             replacements = recipe.meatify()
             replacements = list(replacements)
 
@@ -164,6 +175,10 @@ if __name__ == '__main__':
             continue
 
         if transformation[0] == 'cuisine':
+            print('\n========================================')
+            print('- {}'.format(transformation))
+            print('========================================\n')
+
             cuisine = transformation[1]
 
             if cuisine in ['mexican', 'italian']:
@@ -179,6 +194,10 @@ if __name__ == '__main__':
                 continue
 
         if transformation[0] == 'healthy':
+            print('\n========================================')
+            print('- {}'.format(transformation))
+            print('========================================\n')
+
             replacements = recipe.healthier()
             replacements = list(replacements)
 
@@ -191,6 +210,10 @@ if __name__ == '__main__':
             continue
 
         if transformation[0] == 'not-healthy':
+            print('\n========================================')
+            print('- {}'.format(transformation))
+            print('========================================\n')
+
             replacements = recipe.less_healthy()
             replacements = list(replacements)
 
@@ -203,15 +226,19 @@ if __name__ == '__main__':
             continue
 
         if transformation[0] == 'verbose':
+            print('\n========================================')
+            print('- {}'.format(transformation))
+            print('========================================\n')
+
             print(recipe.get_verbose())
             already_printed = True
             continue
 
         print('\nSorry, that transformation was not recognized.')
 
-        closest = get_closest_transform(transformation)
+        closest = get_closest_transform(' '.join(transformation))
         if closest is not None:
-            print('Did you mean: {}?'.format(closest))
+            print('Did you mean \'{}\'?'.format(closest))
 
         print()
         already_printed = True
