@@ -458,3 +458,4 @@ class Recipe:
                     for i in range(len(self.steps[s].ingredients)):
                         if old in self.steps[s].ingredients[i]:
                             self.steps[s] = Step(self.steps[s].raw.replace(old, new), self.ingredients)
+                            break
