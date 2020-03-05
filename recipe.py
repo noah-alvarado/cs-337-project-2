@@ -386,7 +386,7 @@ class Recipe:
         return print_str
 
     def change_step_ingredients(self, changes):
-        for old, new in zip(*changes):
+        for old, new in changes:
             if old is not None:
                 for s in range(len(self.steps)):
                     for i in range(len(self.steps[s].ingredients)):
