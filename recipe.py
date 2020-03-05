@@ -3,7 +3,7 @@ import random
 from ingredient import Ingredient
 from step import Step
 from webscraper import parse_recipe
-from common_data import meat_to_veg, meat_types, veg_to_meat, veg_types, oily_ingredients, mexican_conversions, italian_conversions, less_healthy_conversions, healthy_conversions, mexican_spices, italian_spices, meat_additions
+from common_data import meat_to_veg, meat_types, veg_to_meat, veg_types, oily_ingredients, mexican_conversions, italian_conversions, less_healthy_conversions, healthy_conversions, mexican_spices, italian_spices, meat_additions, vegan_to_meat
 
 
 class Recipe:
@@ -145,6 +145,43 @@ class Recipe:
                         break
 
             if found is None:
+                continue
+
+            old = self.ingredients[i].name
+            new = random.choice(meat_to_veg[found])
+            if self.ingredients[i].measure == 'item':
+                self.ingredients[i].quantity /= 2.0
+                self.ingredients[i].measure = 'cup'
+            descs = ' '.join(self.ingredients[i].descriptors)
+            descs = descs + ' ' + ' '.join(self.ingredients[i].preparations)
+            descs.strip()
+            new_ing = Ingredient(
+                '{} {} {} {}'.format(self.ingredients[i].quantity, self.ingredients[i].measure, descs, new))
+            new_ing = Ingredient('{} {} {}'.format(self.ingredients[i].quantity, self.ingredients[i].measure, new))
+            self.ingredients[i] = new_ing
+
+            yield old, new
+
+    def veganify(self):
+        for i in range(len(self.ingredients)):
+            found = None
+            for kind, matches in meat_types.items():
+                for match in matches:
+                    if match in self.ingredients[i].name:
+                        found = kind
+                        break
+
+            if found is None:
+                for replacement, matches in vegan_to_meat.items():
+                    for match in matches:
+                        if match == self.ingredients[i].name.lower():
+                            old = self.ingredients[i].name
+                            new = replacement
+                            new_ing = Ingredient(
+                                '{} {} {}'.format(self.ingredients[i].quantity, self.ingredients[i].measure,
+                                                     new))
+                            self.ingredients[i] = new_ing
+                            yield old, new
                 continue
 
             old = self.ingredients[i].name

@@ -7,6 +7,7 @@ def get_closest_transform(transform):
     all_transforms = [
         'adjust',
         'vegify',
+         'veganify',
         'meatify',
         'cuisine mexican',
         'cuisine italian',
@@ -34,6 +35,7 @@ def get_closest_transform(transform):
 def parse_factor(nums):
     fac = 0.0
 
+    nums = nums.split(' ')
     if len(nums) == 2 and '/' not in nums[0] and '/' in nums[1]:
         nums = nums.split(' ')
         fac += float(nums[0])
@@ -90,6 +92,7 @@ if __name__ == '__main__':
 
         print('\tAdjust Amount (where %factor% is an integer, decimal, fraction, or mixed number) -> adjust %factor%')
         print('\tMake Vegetarian -> vegify')
+        print('\tMake Vegan -> veganify')
         print('\tMake Non-Vegetarian -> meatify')
         print('\tTo Cuisine -> cuisine [italian | mexican]')
         print('\tMake Healthier -> healthy')
@@ -139,6 +142,31 @@ if __name__ == '__main__':
             print('========================================\n')
 
             replacements = recipe.vegify()
+            replacements = list(replacements)
+
+            # print what was changed
+            print_replacements(replacements)
+
+            # change steps to reflect changed ingredients
+            recipe.change_step_ingredients(replacements)
+
+            # remove steps with "meat"
+            removals = []
+            for i in range(len(recipe.steps)):
+                if 'meat' in recipe.steps[i].raw:
+                    removals.append(i)
+            removals.reverse()
+            for i in removals:
+                recipe.steps.pop(i)
+
+            continue
+
+        if transformation[0] == 'veganify':
+            print('\n========================================')
+            print('- {}'.format(transformation))
+            print('========================================\n')
+
+            replacements = recipe.veganify()
             replacements = list(replacements)
 
             # print what was changed

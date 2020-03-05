@@ -66,6 +66,13 @@ The specific ingredient used to replace non-vegetarian ingredients is variable, 
 vegify
 ```
 
+### Make Vegetarian
+This will replace all non-vegan ingredients with vegan ones.
+The specific ingredient used to replace non-vegan ingredients is variable, and may changed based on the ingredient itself and random selection.
+```shell script
+veganify
+```
+
 ### Make Non-vegetarian
 This will replace some vegetarian ingredients with some non-vegetarian ones.
 The amount of ingredients replaced and/or added depends on the number of ingredients in the original recipe.

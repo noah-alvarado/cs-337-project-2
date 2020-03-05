@@ -95,6 +95,10 @@ measures = {
     'stick': 'stick',
     'sticks': 'stick',
 
+    # slice
+    'slice': 'slice',
+    'slices': 'slice',
+
     # stalk
     'stalk': 'stalk',
     'stalks': 'stalk',
@@ -405,18 +409,6 @@ veg_to_meat = {
 }
 
 vegan_to_meat = {
-    'fungi': [
-        'cow',
-        'pig',
-        'shellfish'
-    ],
-    'meat substitutes': [
-        'poultry',
-        'fish'
-    ],
-    'broth': ['broth'],
-    'stock': ['stock'],
-    'oil': ['fat'],
     'arrowroot powder': [
         'egg',
         'eggs',
@@ -448,7 +440,8 @@ vegan_to_meat = {
         'brie',
         'feta',
         'goat cheese',
-        'cream cheese'
+        'cream cheese',
+        'cheddar cheese'
     ]
 }
 
