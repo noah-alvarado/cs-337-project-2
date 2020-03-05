@@ -24,7 +24,7 @@ def get_closest_transform(transform):
     for trans, dist in dists.items():
         if best_match[1] > dist:
             best_match = (trans, dist)
-            
+
     if best_match[1] < 5:
         return best_match[0]
     else:
@@ -88,7 +88,7 @@ if __name__ == '__main__':
         # print available transformations
         print('\nAvailable transformations:')
 
-        print('\tAdjust Amount (where %factor% is a fraction or integer) -> adjust %factor%')
+        print('\tAdjust Amount (where %factor% is an integer, decimal, fraction, or mixed number) -> adjust %factor%')
         print('\tMake Vegetarian -> vegify')
         print('\tMake Non-Vegetarian -> meatify')
         print('\tTo Cuisine -> cuisine [italian | mexican]')
@@ -101,6 +101,10 @@ if __name__ == '__main__':
               'want a verbose output.')
 
         transformation = input('\nTransformation: ')
+
+        print('\n========================================')
+        print('- {}'.format(transformation))
+        print('========================================\n')
 
         if 'http://' in transformation or 'https://' in transformation:
             recipe = Recipe(transformation)

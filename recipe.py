@@ -180,7 +180,7 @@ class Recipe:
                 yield old, new
                 break
 
-        if num_items_replaced:
+        if num_items_replaced == 0:
             # try to guess new meat
             ing_str, prep_str, comb_str = random.choice(meat_additions)
 
@@ -390,5 +390,5 @@ class Recipe:
             if old is not None:
                 for s in range(len(self.steps)):
                     for i in range(len(self.steps[s].ingredients)):
-                        if self.steps[s].ingredients[i].name == old:
-                            self.steps[s].ingredients[i].name = new
+                        if self.steps[s].ingredients[i] == old:
+                            self.steps[s].ingredients[i] = new
