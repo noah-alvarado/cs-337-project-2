@@ -404,6 +404,54 @@ veg_to_meat = {
     'fat': ['fat']
 }
 
+vegan_to_meat = {
+    'fungi': [
+        'cow',
+        'pig',
+        'shellfish'
+    ],
+    'meat substitutes': [
+        'poultry',
+        'fish'
+    ],
+    'broth': ['broth'],
+    'stock': ['stock'],
+    'oil': ['fat'],
+    'arrowroot powder': [
+        'egg',
+        'eggs',
+        'egg white',
+        'egg whites'
+    ],
+    'almond milk': [
+        'milk',
+        'dairy',
+        'skim milk',
+        'nonfat milk',
+        'whole milk',
+        'heaving whipping cream',
+        'cream',
+        'half and half'
+    ],
+    'almond milk whipped cream': [
+        'whipped cream'
+    ],
+    'coconut oil': [
+        'butter',
+        'margarine'
+    ],
+    'cashew cheese': [
+        'cheese',
+        'parmesean',
+        'romano',
+        'asiago',
+        'brie',
+        'feta',
+        'goat cheese',
+        'cream cheese'
+    ]
+}
+
 meat_types = {
     'broth': [
         'chicken broth',
