@@ -149,7 +149,6 @@ class Recipe:
 
             old = self.ingredients[i].name
             new = random.choice(meat_to_veg[found])
-            print(old, new)
             if self.ingredients[i].measure == 'item':
                 self.ingredients[i].quantity /= 2.0
                 self.ingredients[i].measure = 'cup'
@@ -178,6 +177,9 @@ class Recipe:
 
             old = self.ingredients[i].name
             new = random.choice(veg_to_meat[found])
+            if self.ingredients[i].measure == 'item':
+                self.ingredients[i].quantity /= 2.0
+                self.ingredients[i].measure = 'cup'
             new_ing = Ingredient('{} {} {}'.format(self.ingredients[i].quantity, self.ingredients[i].measure, new))
             self.ingredients[i] = new_ing
 
