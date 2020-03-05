@@ -683,10 +683,25 @@ ignore_words = [
 mexican_conversions = {
     'cilantro': [
         'parsley',
-        'basil'
+        'basil',
+        'oregano'
     ],
     'mole sauce': [
         'sauce'
+    ],
+    'roja sauce': [
+        'tomato sauce',
+        'red sauce'
+    ],
+    'salsa verde': [
+        'pesto'
+    ],
+    'chile powder': [
+        'pepper',
+        'paprika',
+        'black pepper',
+        'white pepper',
+        'red pepper'
     ]
 }
 
@@ -698,10 +713,23 @@ mexican_conversions = {
 italian_conversions = {
     'basil': [
         'cilantro',
-        'parsely'
+        'parsely',
+        'chives'
     ],
     'tomato sauce': [
         'sauce'
+    ],
+    'oregano': [
+        'thyme',
+        'sage'
+    ],
+    'risotto': [
+        'rice',
+        'quinoa'
+    ],
+    'gnocchi': [
+        'noodles',
+        'pasta'
     ]
 }
 
