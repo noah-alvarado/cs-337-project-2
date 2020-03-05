@@ -705,14 +705,36 @@ italian_conversions = {
 less_healthy_conversions = {
     'butter': [
         'oil',
-        'margarine'
+        'margarine',
+        'olive oil'
     ],
     'pork shoulder': [
         'chicken',
         'portobello mushroom',
-        'portabello mushroom'
+        'portabello mushroom',
+        'eggplant'
+    ],
+    'potatoes': [
+        'sweet potato',
+        'broccoli',
+        'spinach',
+        'kale',
+        'cauliflower'
+
+    ],
+    'veal': [
+        'beef',
+        'turkey',
+        'pork'
+    ],
+    'beef': [
+        'fish',
+        'salmon',
+        'cod'
     ]
 }
+
+# github used for transformation ideas : https://github.com/amitadate/EECS-337-NLP-Project-02/blob/master/Final_Submission/transformation_list.py?fbclid=IwAR1mwj85zlLm9l7fXHXSh4yUfrp89OZvyU-BCceqeJBnV6uKavLawCx_XVk
 
 # less healthy conversion dict:
 #   key: the thing an ingredient is replaced with
@@ -723,12 +745,73 @@ healthy_conversions = {
     'avocado oil': [
         'oil',
         'butter',
-        'margarine'
+        'margarine',
+        'lard',
+        'fat'
     ],
     'chicken breast': [
         'pork',
         'steak',
         'filet mignon'
+    ],
+    'turkey': [
+        'veal',
+        'chicken'
+    ],
+    'zucchini noodles': [
+        'pasta',
+        'noodles',
+        'spaghetti'
+    ],
+    'olive oil': [
+       'vegetable oil',
+       'canola oil',
+       'peanut oil',
+       'coconut oil',
+       'corn oil',
+       'sunflower oil',
+       'safflower oil'
+    ],
+    'almond milk': [
+        'whole milk',
+        'milk'
+    ],
+    'lettuce wraps': [
+        'tortillas',
+        'hamburger bun',
+        'hot dog bun',
+        'sliced bread',
+        'taco shell',
+        'buns'
+    ],
+    'panko': [
+        'breadcrumbs',
+        'pork rinds',
+        'bread crumbs'
+    ],
+    'mashed cauliflower': [
+        'potatoes',
+        'mashed potatoes',
+        'mashed sweet potatoes'
+    ],
+    'mushroom broth': [
+        'chicken soup',
+        'chicken noodle soup',
+    ],
+    'egg whites': [
+        'eggs',
+        'egg',
+        'whole egg'
+    ],
+    'turkey sausage': [
+        'sausage',
+        'bratwurst'
+    ],
+    'turkey bacon': [
+        'bacon'
+    ],
+    'ranch dressing': [
+        'apple cider vinegar'
     ]
 }
 
@@ -737,7 +820,8 @@ healthy_conversions = {
 # (ingredient_string, step_string)
 healthy_additions = [
     ('1/2 cup chopped kale', 'Top with kale.'),
-    ('', '')
+    ('1 cup zucchini noodles', 'Mix in zoodles.'),
+    ('1/2 cup raw spinach', 'Saute in pan and mix to dish for a healthier option.')
 ]
 
 # list as they would be in the recipe page, it's randomized so just fill it out
@@ -745,20 +829,44 @@ healthy_additions = [
 # (ingredient_string, step_string)
 less_healthy_additions = [
     ('2 Tbsp chocolate syrup, or to taste', 'Top with chocolate syrup.'),
-    ('', '')
+    ('3 cups fry oil', 'Deep fry meat or meat substitute before adding to dish.'),
+    ('1 cup breadcrumbs', 'Coat protein in breadcrumbs for a heartier option.')
 ]
 
 mexican_spices = [
     'cumin',
     'coriander',
-    'achiote'
+    'achiote',
+    'chipotle powder',
+    'jalapeno',
+    'cilantro',
+    'chile powder',
+    'cayenne',
+    'annatto seeds',
+    'canella',
+    'mexican oregano',
+    'cinnamon',
+    'paprika',
+    'onion powder',
+    'cloves'
 ]
 
 italian_spices = [
     'oregano',
     'thyme',
     'basil',
-    'sage'
+    'sage',
+    'garlic powder',
+    'red pepper flakes',
+    'coriander',
+    'saffron',
+    'bay leaves',
+    'parsley',
+    'paprika',
+    'rosemary',
+    'sage',
+    'marjoram',
+    'fennel'
 ]
 
 # list as they would be in the recipe page, it's randomized so just fill it out
@@ -766,5 +874,6 @@ italian_spices = [
 # ingredient string, cook string, combine string
 meat_additions = [
     ('1 lb chicken breast', 'Bake chicken breast for 45 minutes at 350 degrees.', 'Slice chicken breast and add to your dish.'),
-    ('', '', '')
+    ('1 lb ground beef', 'Brown beef in sauce pan for 8-10 minutes or until cooked thoroughly.', 'Add to dish and serve.'),
+    ('1/4 lb shrimp', 'Cook shrimp in shallow pan for 2-3 minutes each side.', 'Stir shrimp to combine.')
 ]
