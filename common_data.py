@@ -343,7 +343,7 @@ meat_to_veg = {
 
     # cow
     'cow': [
-        'portabello mushroom',
+        'portobello mushroom',
         'tofu',
         'jackfruit',
         'seitan'
@@ -552,7 +552,7 @@ veg_types = {
     'fungi': [
         'king oyster mushrooms',
         'shitake mushrooms',
-        'portabello mushrooms',
+        'portobello mushrooms',
         'cremini mushrooms'
     ],
     'roots': [
@@ -747,7 +747,7 @@ less_healthy_conversions = {
     'pork shoulder': [
         'chicken',
         'portobello mushroom',
-        'portabello mushroom',
+        'portobello mushroom',
         'eggplant'
     ],
     'potatoes': [
@@ -865,7 +865,7 @@ healthy_additions = [
 # (ingredient_string, step_string)
 less_healthy_additions = [
     ('2 Tbsp chocolate syrup, or to taste', 'Top with chocolate syrup.'),
-    ('3 cups fry oil', 'Deep fry meat or meat substitute before adding to dish.'),
+    ('3 cups peanut oil', 'Deep fry meat or meat substitute before adding to dish.'),
     ('1 cup breadcrumbs', 'Coat protein in breadcrumbs for a heartier option.')
 ]
 

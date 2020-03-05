@@ -396,5 +396,5 @@ class Recipe:
             if old is not None:
                 for s in range(len(self.steps)):
                     for i in range(len(self.steps[s].ingredients)):
-                        if self.steps[s].ingredients[i] == old:
+                        if old in self.steps[s].ingredients[i]:
                             self.steps[s].ingredients[i] = new
