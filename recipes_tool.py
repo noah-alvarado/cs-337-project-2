@@ -112,16 +112,18 @@ if __name__ == '__main__':
         transformation = transformation.lower()
         transformation = transformation.split(' ')
 
+        args = ' '.join(transformation)
+
         if transformation[0] == 'stop':
             print('\n========================================')
-            print('- {}'.format(transformation))
+            print('- {}'.format(args))
             print('========================================\n')
             print('bye!')
             break
 
         if transformation[0] == 'adjust':
             print('\n========================================')
-            print('- {}'.format(transformation))
+            print('- {}'.format(args))
             print('========================================\n')
 
             factor = ' '.join(transformation[1:])
@@ -138,7 +140,7 @@ if __name__ == '__main__':
 
         if transformation[0] == 'vegify':
             print('\n========================================')
-            print('- {}'.format(transformation))
+            print('- {}'.format(args))
             print('========================================\n')
 
             replacements = recipe.vegify()
@@ -163,7 +165,7 @@ if __name__ == '__main__':
 
         if transformation[0] == 'veganify':
             print('\n========================================')
-            print('- {}'.format(transformation))
+            print('- {}'.format(args))
             print('========================================\n')
 
             replacements = recipe.veganify()
@@ -188,7 +190,7 @@ if __name__ == '__main__':
 
         if transformation[0] == 'meatify':
             print('\n========================================')
-            print('- {}'.format(transformation))
+            print('- {}'.format(args))
             print('========================================\n')
 
             replacements = recipe.meatify()
@@ -204,7 +206,7 @@ if __name__ == '__main__':
 
         if transformation[0] == 'cuisine':
             print('\n========================================')
-            print('- {}'.format(transformation))
+            print('- {}'.format(args))
             print('========================================\n')
 
             cuisine = transformation[1]
@@ -223,7 +225,7 @@ if __name__ == '__main__':
 
         if transformation[0] == 'healthy':
             print('\n========================================')
-            print('- {}'.format(transformation))
+            print('- {}'.format(args))
             print('========================================\n')
 
             replacements = recipe.healthier()
@@ -239,7 +241,7 @@ if __name__ == '__main__':
 
         if transformation[0] == 'not-healthy':
             print('\n========================================')
-            print('- {}'.format(transformation))
+            print('- {}'.format(args))
             print('========================================\n')
 
             replacements = recipe.less_healthy()
@@ -255,7 +257,7 @@ if __name__ == '__main__':
 
         if transformation[0] == 'verbose':
             print('\n========================================')
-            print('- {}'.format(transformation))
+            print('- {}'.format(args))
             print('========================================\n')
 
             print(recipe.get_verbose())
