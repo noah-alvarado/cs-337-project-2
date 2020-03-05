@@ -96,14 +96,12 @@ class Recipe:
                         if amount < 1.0:
                             if not adjusted:
                                 adjusted = True
-                                print('\tBecause of the', prep, 'method, we are using', 1.5 * amount,
-                                      'times the amount of', ingredient.name)
+                                print('\tBecause of the {} method, we are using {} times the amount of {}.'.format(prep, 1.5 * amount, ingredient.name))
                                 ingredient.quantity *= 1.5 * amount
                         else:
                             if not adjusted:
                                 adjusted = True
-                                print('\tBecause of the', prep, 'method, we are using', 0.75 * amount,
-                                      'times the amount of', ingredient.name)
+                                print('\tBecause of the {} method, we are using {} times the amount of {}.'.format(prep, 0.75 * amount, ingredient.name))
                                 ingredient.quantity *= amount * .75
             if not adjusted:
                 not_adjusted_list.append(ingredient.name)
@@ -315,7 +313,7 @@ class Recipe:
 
                 # guess a spice
                 this_spice = random.choice(additions)
-                spice = Ingredient(f'{this_spice}, to taste')
+                spice = Ingredient('{}, to taste'.format(this_spice))
                 additions.remove(this_spice)
 
                 # add spice to ingredients
@@ -327,7 +325,7 @@ class Recipe:
             # add spices to steps
             if len(actually_added) > 0:
                 spices = ', '.join(actually_added)
-                new_step = Step(f'Top with {spices}.', self.ingredients)
+                new_step = Step('Top with {}.'.format(spices), self.ingredients)
                 self.steps.append(new_step)
 
     def get_verbose(self):
@@ -386,3 +384,11 @@ class Recipe:
                 ', '.join(step.tools).rsplit(', ', 1)) + \
                          '\n\t\t\tMethods: ' + ' and '.join(', '.join(step.methods).rsplit(', ', 1)) + '\n'
         return print_str
+
+    def change_step_ingredients(self, changes):
+        for old, new in zip(*changes):
+            if old is not None:
+                for s in range(len(self.steps)):
+                    for i in range(len(self.steps[s].ingredients)):
+                        if self.steps[s].ingredients[i].name == old:
+                            self.steps[s].ingredients[i].name = new

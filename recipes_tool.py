@@ -11,12 +11,12 @@ def print_replacements(changes):
 
     if len(swaps) > 0:
         for old, new in zip(*swaps):
-            print(f'Replaced {old} with {new}')
+            print('Replaced {} with {}'.format(old, new))
         print()
 
     if len(additions) > 0:
         for _, new in zip(*additions):
-            print(f'Added {new}')
+            print('Added {}'.format(new))
         print()
 
 
@@ -75,25 +75,25 @@ if __name__ == '__main__':
 
         if transformation[0] == 'vegify':
             replacements = recipe.vegify()
-            print_replacements(list(replacements))
+            replacements = list(replacements)
+
+            # print what was changed
+            print_replacements(replacements)
 
             # change steps to reflect changed ingredients
-            # TODO
-
-            # change steps to reflect new ingredients
-            # TODO
+            recipe.change_step_ingredients(replacements)
 
             continue
 
         if transformation[0] == 'meatify':
             replacements = recipe.meatify()
-            print_replacements(list(replacements))
+            replacements = list(replacements)
+
+            # print what was changed
+            print_replacements(replacements)
 
             # change steps to reflect changed ingredients
-            # TODO
-
-            # change steps to reflect new ingredients
-            # TODO
+            recipe.change_step_ingredients(replacements)
 
             continue
 
@@ -101,37 +101,37 @@ if __name__ == '__main__':
             cuisine = transformation[1]
 
             replacements = recipe.to_cuisine(cuisine)
-            print_replacements(list(replacements))
+            replacements = list(replacements)
+
+            # print what was changed
+            print_replacements(replacements)
 
             # change steps to reflect changed ingredients
-            # TODO
-
-            # change steps to reflect new ingredients
-            # TODO
+            recipe.change_step_ingredients(replacements)
 
             continue
 
         if transformation[0] == 'healthy':
             replacements = recipe.healthier()
-            print_replacements(list(replacements))
+            replacements = list(replacements)
+
+            # print what was changed
+            print_replacements(replacements)
 
             # change steps to reflect changed ingredients
-            # TODO
-
-            # change steps to reflect new ingredients
-            # TODO
+            recipe.change_step_ingredients(replacements)
 
             continue
 
         if transformation[0] == 'not-healthy':
             replacements = recipe.less_healthy()
-            print_replacements(list(replacements))
+            replacements = list(replacements)
+
+            # print what was changed
+            print_replacements(replacements)
 
             # change steps to reflect changed ingredients
-            # TODO
-
-            # change steps to reflect new ingredients
-            # TODO
+            recipe.change_step_ingredients(replacements)
 
             continue
 
