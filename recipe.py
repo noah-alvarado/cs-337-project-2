@@ -152,6 +152,11 @@ class Recipe:
             if self.ingredients[i].measure == 'item':
                 self.ingredients[i].quantity /= 2.0
                 self.ingredients[i].measure = 'cup'
+            descs = ' '.join(self.ingredients[i].descriptors)
+            descs = descs + ' ' + ' '.join(self.ingredients[i].preparations)
+            descs.strip()
+            new_ing = Ingredient(
+                '{} {} {} {}'.format(self.ingredients[i].quantity, self.ingredients[i].measure, descs, new))
             new_ing = Ingredient('{} {} {}'.format(self.ingredients[i].quantity, self.ingredients[i].measure, new))
             self.ingredients[i] = new_ing
 
@@ -180,7 +185,10 @@ class Recipe:
             if self.ingredients[i].measure == 'item':
                 self.ingredients[i].quantity /= 2.0
                 self.ingredients[i].measure = 'cup'
-            new_ing = Ingredient('{} {} {}'.format(self.ingredients[i].quantity, self.ingredients[i].measure, new))
+            descs = ' '.join(self.ingredients[i].descriptors)
+            descs = descs + ' ' + ' '.join(self.ingredients[i].preparations)
+            descs.strip()
+            new_ing = Ingredient('{} {} {} {}'.format(self.ingredients[i].quantity, self.ingredients[i].measure, descs, new))
             self.ingredients[i] = new_ing
 
             num_items_replaced += 1
@@ -207,23 +215,30 @@ class Recipe:
     def healthier(self):
         num_items_replaced = 0
         for i in range(len(self.ingredients)):
+            found = None
             for kind, matches in healthy_conversions.items():
-                found = None
                 for match in matches:
                     if match in self.ingredients[i].name:
                         found = kind
                         break
 
-                if found is None:
-                    break
+            if found is None:
+                continue
 
-                old = self.ingredients[i].name
-                self.ingredients[i].name = kind
-                new = self.ingredients[i].name
+            old = self.ingredients[i].name
+            if self.ingredients[i].measure == 'item':
+                self.ingredients[i].quantity /= 2.0
+                self.ingredients[i].measure = 'cup'
+            descs = ' '.join(self.ingredients[i].descriptors)
+            descs = descs + ' ' + ' '.join(self.ingredients[i].preparations)
+            descs.strip()
+            new_ing = Ingredient('{} {} {} {}'.format(self.ingredients[i].quantity, self.ingredients[i].measure, descs, found))
+            self.ingredients[i] = new_ing
 
-                num_items_replaced += 1
-                yield old, new
-                break
+            new = self.ingredients[i].name
+
+            num_items_replaced += 1
+            yield old, new
 
         if num_items_replaced == 0:
             # guess new ingredient
@@ -242,23 +257,31 @@ class Recipe:
     def less_healthy(self):
         num_items_replaced = 0
         for i in range(len(self.ingredients)):
+            found = None
             for kind, matches in less_healthy_conversions.items():
-                found = None
                 for match in matches:
                     if match in self.ingredients[i].name:
                         found = kind
                         break
 
-                if found is None:
-                    break
+            if found is None:
+                continue
 
-                old = self.ingredients[i].name
-                self.ingredients[i].name = kind
-                new = self.ingredients[i].name
+            old = self.ingredients[i].name
+            if self.ingredients[i].measure == 'item':
+                self.ingredients[i].quantity /= 2.0
+                self.ingredients[i].measure = 'cup'
+            descs = ' '.join(self.ingredients[i].descriptors)
+            descs = descs + ' ' + ' '.join(self.ingredients[i].preparations)
+            descs.strip()
+            new_ing = Ingredient(
+                '{} {} {} {}'.format(self.ingredients[i].quantity, self.ingredients[i].measure, descs, found))
+            self.ingredients[i] = new_ing
 
-                num_items_replaced += 1
-                yield old, new
-                break
+            new = self.ingredients[i].name
+
+            num_items_replaced += 1
+            yield old, new
 
         if num_items_replaced == 0:
             # guess new ingredient
@@ -397,4 +420,4 @@ class Recipe:
                 for s in range(len(self.steps)):
                     for i in range(len(self.steps[s].ingredients)):
                         if old in self.steps[s].ingredients[i]:
-                            self.steps[s].ingredients[i] = new
+                            self.steps[s] = Step(self.steps[s].raw.replace(old, new), self.ingredients)

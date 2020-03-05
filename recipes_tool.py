@@ -25,7 +25,7 @@ def get_closest_transform(transform):
         if best_match[1] > dist:
             best_match = (trans, dist)
 
-    if best_match[1] < 5:
+    if best_match[1] < 10:
         return best_match[0]
     else:
         return None
@@ -140,6 +140,15 @@ if __name__ == '__main__':
             # change steps to reflect changed ingredients
             recipe.change_step_ingredients(replacements)
 
+            # remove steps with "meat"
+            removals = []
+            for i in range(len(recipe.steps)):
+                if 'meat' in recipe.steps[i].raw:
+                    removals.append(i)
+            removals.reverse()
+            for i in removals:
+                recipe.steps.pop(i)
+
             continue
 
         if transformation[0] == 'meatify':
@@ -202,7 +211,7 @@ if __name__ == '__main__':
 
         closest = get_closest_transform(transformation)
         if closest is not None:
-            print('Did you mean: {}'.format(closest))
+            print('Did you mean: {}?'.format(closest))
 
         print()
         already_printed = True
