@@ -1,4 +1,56 @@
+import Levenshtein
+
 from recipe import Recipe
+
+
+def get_closest_transform(transform):
+    all_transforms = [
+        'adjust',
+        'vegify',
+        'meatify',
+        'cuisine mexican',
+        'cuisine italian',
+        'healthy',
+        'not-healthy',
+        'stop',
+        'verbose'
+    ]
+
+    dists = {trans: Levenshtein.distance(trans, transform) for trans in all_transforms}
+
+    # actual_transformation, distance_to_input
+    best_match = ('nope', 100)
+
+    for trans, dist in dists.items():
+        if best_match[1] > dist:
+            best_match = (trans, dist)
+            
+    if best_match[1] < 5:
+        return best_match[0]
+    else:
+        return None
+
+
+def parse_factor(nums):
+    fac = 0.0
+
+    if len(nums) == 2 and '/' not in nums[0] and '/' in nums[1]:
+        nums = nums.split(' ')
+        fac += float(nums[0])
+        nums = nums[1].split('/')
+        fac += float(nums[0]) / float(nums[1])
+    elif len(nums) == 1 and '/' in nums[0]:
+        nums = nums[0].split('/')
+        fac += float(nums[0]) / float(nums[1])
+    elif len(nums) == 1:
+        fac += float(nums[0])
+    else:
+        raise ValueError('Factor not of proper form.')
+
+    if fac > 0:
+        return fac
+    else:
+        raise ValueError('Factor not a real, positive value.')
 
 
 def print_replacements(changes):
@@ -62,11 +114,12 @@ if __name__ == '__main__':
             break
 
         if transformation[0] == 'adjust':
-            factor = transformation[1]
+            factor = ' '.join(transformation[1:])
+            factor = factor.strip()
             try:
-                factor = float(factor)
-            except:
-                print('Invalid Input :(')
+                factor = parse_factor(factor)
+            except ValueError:
+                print('\nInvalid input for %factor%, it must be a number in either decimal or fraction form.\n')
                 continue
 
             print('Adjusting the recipe by a factor of: ', factor)
@@ -141,5 +194,11 @@ if __name__ == '__main__':
             already_printed = True
             continue
 
-        print('\nSorry, that tranformation was not recognized. Please check your spelling and try again.\n')
+        print('\nSorry, that transformation was not recognized.')
+
+        closest = get_closest_transform(transformation)
+        if closest is not None:
+            print('Did you mean: {}'.format(closest))
+
+        print()
         already_printed = True

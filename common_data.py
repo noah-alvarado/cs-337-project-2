@@ -95,6 +95,14 @@ measures = {
     'stick': 'stick',
     'sticks': 'stick',
 
+    # stalk
+    'stalk': 'stalk',
+    'stalks': 'stalk',
+
+    # bushel
+    'bushel': 'bushel',
+    'bushels': 'bushel',
+
     # packet
     'packet': 'packet',
     'packets': 'packet',
